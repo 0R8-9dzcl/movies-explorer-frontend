@@ -1,0 +1,28 @@
+.nav-land {
+  background-color: #000;
+  width: 100%;
+  position:-webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+.nav-land__container {
+  margin: 0 auto;
+}
+.nav-land__list {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  height: 66px;
+}
+.nav-land__link {
+  color: #fff;
+  margin: 0 20px 0 20px;
+  line-height: 16px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: solid 1px
+}

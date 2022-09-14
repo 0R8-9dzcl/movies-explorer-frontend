@@ -1,0 +1,118 @@
+.portfolio {
+  margin: 0 auto 0;
+  padding: 0 70px 85px;
+  max-width: 1440px;
+  display: block;
+}
+.portfolio__container {
+  margin: 0 auto;
+  padding: 0;
+  display: grid;
+  grid-template-rows: 161px 126px 49px 201px 100px 86px 253px;
+  grid-template-areas:
+    "title title"
+    "name photo"
+    "prof photo"
+    "about-me photo"
+    "socials photo"
+    "works ."
+    "work-list work-list";
+}
+.portfolio__title {
+  grid-area: title;
+  font-weight: 400;
+  font-size: 22px;
+  margin: 110px 0 0;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  padding: 0 0 23px 0;
+  border-bottom: solid 1px;
+}
+.portfolio__name {
+  max-width: 600px;
+  margin: 66px 0px;
+  grid-area: name;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  letter-spacing: -0.04em;
+}
+.portfolio__profession {
+  max-width: 600px;
+  margin: 16px 0px;
+  grid-area: prof;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+}
+.portfolio__about-me {
+  max-width: 600px;
+  margin: 13px 40px 0 0px;
+  grid-area: about-me;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+}
+.portfolio__social-list {
+  grid-area: socials;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  gap: 0 20px;
+}
+.portfolio__social-item {
+  color: #000;
+}
+.portfolio__photo {
+  grid-area: photo;
+  border-radius: 10px;
+  object-fit: cover;
+  justify-self: end;
+  width: 270px;
+  height: 327px;
+  margin-top: 66px;
+}
+.portfolio__works {
+  margin: 18px 0px;
+  grid-area: works;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  color: #A0A0A0;
+}
+.portfolio__work-list {
+  grid-area: work-list;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 50px;
+  letter-spacing: -0.04em;
+  position: relative;
+}
+.porfolio__work-item {
+  margin: 0 0 20px;
+  padding: 0px 0 20px;
+  display: block;
+  border-bottom: solid #e8e8e8 1px;
+  position: relative;
+}
+.porfolio__work-item:after {
+  background-image: url('../../images/potfolio__arrow.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 17px;
+  width: 18px;
+  position: absolute;
+  top: 27%;
+  right: 6px;
+  content: '';
+}
+.porfolio__work-item:last-of-type {
+  border-bottom: none;
+}

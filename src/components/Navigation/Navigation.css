@@ -1,0 +1,27 @@
+.nav {
+  align-items: center;
+  display: flex;
+  margin-right: 70px;
+}
+.nav__list {
+  gap: 30px;
+  list-style-type: none;
+  margin: -2px 0 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+.nav__link {
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+}
+.nav__link_type_login {
+  color: #000;
+  background-color: #2BE080;
+  padding: 8px 20px;
+  border-radius: 3px;
+}

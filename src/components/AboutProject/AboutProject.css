@@ -1,0 +1,62 @@
+.about {
+  margin: 0 auto;
+  padding: 0;
+  max-width: 1440px;
+}
+.about__title {
+  font-weight: 400;
+  font-size: 22px;
+  margin: 110px 70px 0;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  padding: 0 0 23px 0;
+  border-bottom: solid 1px;
+}
+.about__list {
+  list-style-type: none;
+  display: grid;
+  padding: 0;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 40px;
+  margin: 50px 70px 0;
+}
+.about__list-title {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+}
+.about__paragraph {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  margin: 26px 0;
+}
+.about__schedule {
+  display: grid;
+  padding: 0;
+  margin: 84px 70px 100px;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 36px 36px;
+  grid-template-areas:
+  "back-top front-top"
+  "back-buttom front-buttom";
+  gap: 5px 0px;
+  text-align: center;
+}
+.about__schedule-span {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  padding: 8px;
+}
+.about__schedule-span_type_back {
+  grid-area: back-top;
+  background-color: #2BE080;
+}
+.about__schedule-span_type_front {
+  grid-area: front-top;
+  background-color: #f2f2f2;
+}
