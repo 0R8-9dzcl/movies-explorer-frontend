@@ -16,3 +16,9 @@
   width: 38px;
   margin: 18px 70px;
 }
+
+@media screen and (max-width: 768px) {
+  .header__logo-button {
+    margin: 18px 30px;
+  }
+}

@@ -42,3 +42,19 @@
   text-decoration: none;
   gap: 0 20px;
 }
+@media screen and (max-width: 768px) {
+  .footer {
+    padding: 0 37px 20px;
+  }
+  .footer__title {
+    margin: 97px auto 18px;
+    font-size: 13px;
+    line-height: 16px;
+  }
+  .footer__container {
+    margin: 2px -7px;
+  }
+  .footer__copy {
+    margin: 0;
+  }
+}

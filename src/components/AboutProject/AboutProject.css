@@ -60,3 +60,21 @@
   grid-area: front-top;
   background-color: #f2f2f2;
 }
+@media screen and (max-width: 768px) {
+  .about__title {
+    margin: 90px 50px 0;
+  }
+  .about__list {
+    margin: 50px 50px 0;
+    gap: 0px 30px;
+  }
+  .about__paragraph {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 0;
+  }
+  .about__schedule {
+    margin: 95px 50px 84px;
+    grid-template-columns: 1.06fr 4fr;
+  }
+}

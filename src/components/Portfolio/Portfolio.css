@@ -66,6 +66,7 @@
 }
 .portfolio__social-item {
   color: #000;
+  text-decoration: none;
 }
 .portfolio__photo {
   grid-area: photo;
@@ -96,7 +97,7 @@
   position: relative;
 }
 .porfolio__work-item {
-  margin: 0 0 20px;
+  margin: 0px 0px 20px;
   padding: 0px 0 20px;
   display: block;
   border-bottom: solid #e8e8e8 1px;
@@ -115,4 +116,40 @@
 }
 .porfolio__work-item:last-of-type {
   border-bottom: none;
+}
+@media screen and (max-width: 768px) {
+  .portfolio {
+    padding: 0px 50px 49px;
+  }
+  .portfolio__container {
+    grid-template-rows: 161px 86px 49px 200px 92px 86px 253px;
+  }
+  .portfolio__title {
+    margin: 90px 0 0;
+  }
+  .portfolio__name {
+    margin: 47px 0px;
+    font-size: 40px;
+    line-height: 40px;
+  }
+  .portfolio__photo {
+    width: 255px;
+    height: 307px;
+    margin-top: 47px;
+  }
+  .portfolio__profession {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .portfolio__about-me {
+    margin: 5px 50px 0 0px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .portfolio__work-list {
+    font-size: 28px;
+  }
+  .porfolio__work-item {
+    padding: 0px 0px 19px;
+  }
 }

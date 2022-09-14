@@ -6,7 +6,6 @@
   padding: 0;
 }
 .techs__title {
-  margin: 90px auto 26px;
   font-weight: 400;
   font-size: 22px;
   margin: 100px 70px 0;
@@ -36,7 +35,7 @@
   max-width: 690px;
   list-style-type: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(84px, 90px));
+  grid-template-columns: repeat(auto-fit, 90px);
   grid-template-rows: 60px;
   text-align: center;
   align-items: center;
@@ -54,4 +53,26 @@
   line-height: 17px;
   text-align: center;
   letter-spacing: -0.04em;
+}
+@media screen and (max-width: 768px) {
+  .techs__title {
+    margin: 88px 50px 0;
+    padding: 0 0 23px 0;
+  }
+  .techs__sub-title {
+    margin: 79px auto 22px;
+  }
+  .techs__paragraph {
+    margin: 0 auto 83px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .techs__list {
+    grid-template-columns: repeat(auto-fit, 84px);
+    grid-template-rows: 57px;
+    margin: 0 auto 90px;
+  }
+  .techs__item {
+    padding: 20px 0
+  }
 }
