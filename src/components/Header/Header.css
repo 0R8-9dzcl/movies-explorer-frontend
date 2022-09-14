@@ -22,3 +22,8 @@
     margin: 18px 30px;
   }
 }
+@media screen and (max-width: 425px) {
+  .header__logo-button {
+    margin: 18px 14px;
+  }
+}

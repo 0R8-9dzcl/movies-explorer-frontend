@@ -21,7 +21,6 @@
   color: #fff;
   margin: 184px auto;
 }
-
 @media screen and (max-width: 768px) {
   .promo {
     height: 784px;
@@ -31,5 +30,19 @@
   }
   .promo__title {
     margin: 325px auto;
+  }
+}
+@media screen and (max-width: 425px) {
+  .promo {
+    height: 570px;
+  }
+  .promo__logo {
+    top: 142px;
+    width: 248px;
+  }
+  .promo__title {
+    margin: 207px auto;
+    font-size: 31px;
+    line-height: 39px;
   }
 }

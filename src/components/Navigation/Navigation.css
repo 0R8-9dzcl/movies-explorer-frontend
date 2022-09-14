@@ -1,7 +1,7 @@
 .nav {
   align-items: center;
   display: flex;
-  margin-right: 30px;
+  margin-right: 70px;
 }
 .nav__list {
   gap: 30px;
@@ -24,4 +24,24 @@
   background-color: #2BE080;
   padding: 8px 20px;
   border-radius: 3px;
+}
+@media screen and (max-width:768px) {
+  .nav {
+    margin-right: 30px;
+  }
+}
+@media screen and (max-width: 425px) {
+  .nav {
+    margin-right: 14px;
+  }
+  .nav__list {
+    margin: -3px 0 0;
+    gap: 14px
+  }
+  .nav__link {
+    font-size: 10px;
+  }
+  .nav__link_type_login {
+    padding: 7px 12px;
+  }
 }
