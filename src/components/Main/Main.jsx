@@ -5,13 +5,13 @@ import Techs from '../Techs/Techs';
 import Portfolio from '../Portfolio/Portfolio';
 function Main() {
   return (
-    <>
+    <main>
       <Promo />
       <NavTab />
       <AboutProject />
       <Techs />
       <Portfolio />
-    </>
+    </main>
   );
 }
 
