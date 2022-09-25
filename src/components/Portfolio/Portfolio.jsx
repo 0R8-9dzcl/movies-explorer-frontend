@@ -1,5 +1,5 @@
 import './Portfolio.css';
-import myPhoto from '../../images/my-photo.png';
+import myPhoto from '../../images/portfolio__photo.png';
 
 function Portfolio() {
   return (
