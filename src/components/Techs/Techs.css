@@ -98,6 +98,6 @@
   .techs__list {
     grid-template-columns: 84px 84px;
     margin: 0 auto 70px;
-    padding: 0 71px 0 71px;
+    padding: 0;
   }
 }
