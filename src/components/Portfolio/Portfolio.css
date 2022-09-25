@@ -103,6 +103,10 @@
   border-bottom: solid #e8e8e8 1px;
   position: relative;
 }
+.porfolio__work-item a {
+  color: #000;
+  text-decoration: none;
+}
 .porfolio__work-item:after {
   background-image: url('../../images/potfolio__arrow.svg');
   background-repeat: no-repeat;
