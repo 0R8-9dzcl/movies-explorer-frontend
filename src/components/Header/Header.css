@@ -1,8 +1,11 @@
 .header {
   height: 74px;
   width: 100%;
+  background-color: #fff;
+  z-index: 0;
+  position: relative;
 }
-.header__theme_dark{
+.header_theme_dark{
   background-color: #073042;
 }
 .header__container {
@@ -15,15 +18,41 @@
   height: 38px;
   width: 38px;
   margin: 18px 70px;
+  z-index: -1;
+}
+.header__burger {
+  display: none;
+  z-index: 0;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: none;
+  margin: 15px 30px;
+  padding: 0;
+  outline: none;
+}
+.header__burger-icon {
+  margin: 0;
+  padding: 0;
+  height: 44px;
+  width: 44px;
 }
 
 @media screen and (max-width: 768px) {
   .header__logo-button {
     margin: 18px 30px;
   }
+  .header__burger {
+    display: block;
+    height: 44px;
+    width: 44px;
+  }
 }
 @media screen and (max-width: 425px) {
   .header__logo-button {
     margin: 18px 14px;
+  }
+  .header__burger {
+    margin: 15px 15px;
   }
 }
