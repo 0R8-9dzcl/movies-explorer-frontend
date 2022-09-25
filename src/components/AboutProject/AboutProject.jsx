@@ -1,20 +1,22 @@
 import './AboutProject.css';
 
 function AboutProject() {
-  return(
-    <section className="about" id='about-project'>
+  return (
+    <section className="about" id="about-project">
       <h2 className="about__title">О проекте</h2>
       <ul className="about__list">
         <li>
           <h3 className="about__list-title">Дипломный проект включал 5 этапов</h3>
           <p className="about__paragraph">
-            Составление плана, работу над бэкендом, вёрстку, добавление функциональности и финальные доработки.
+            Составление плана, работу над бэкендом, вёрстку,
+            добавление функциональности и финальные доработки.
           </p>
         </li>
         <li>
           <h3 className="about__list-title">На выполнение диплома ушло 5 недель</h3>
           <p className="about__paragraph">
-            У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься.
+            У каждого этапа был мягкий и жёсткий дедлайн,
+            которые нужно было соблюдать, чтобы успешно защититься.
           </p>
         </li>
       </ul>
