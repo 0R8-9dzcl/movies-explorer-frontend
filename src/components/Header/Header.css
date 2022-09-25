@@ -53,6 +53,10 @@
     margin: 18px 14px;
   }
   .header__burger {
-    margin: 15px 15px;
+    margin: 17px 12px;
+  }
+  .header__burger-icon {
+    height: 34px;
+    width: 34px;
   }
 }
