@@ -102,7 +102,7 @@
     visibility: visible;
     opacity: 1;
   }
-  .nav_type_logged:before {
+  .nav__close-burger:before {
     content: '';
     position: fixed;
     z-index: -1;
@@ -138,6 +138,8 @@
   }
   .nav__link_type_profile {
     font-weight: 500;
+    /* отключил границу для активной ссылки, так как выглядит не очень симпотично */
+    border: none;
   }
   .nav__link_type_profile:after {
   top: 6px;

@@ -20,12 +20,9 @@ function App() {
       if (evt.key === 'Escape') {
         setBurgerOpen(false);
       }
-      if (evt.target.classList.contains('nav_type_logged:before')) {
-        setBurgerOpen(false);
-      }
     };
-    document.addEventListener('click', closeByEvent);
-    return () => document.removeEventListener('click', closeByEvent);
+    document.addEventListener('keydown', closeByEvent);
+    return () => document.removeEventListener('keydown', closeByEvent);
   }, []);
   return (
     <>
