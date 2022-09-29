@@ -3,6 +3,9 @@ import { Route } from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
+import Movies from '../Movies/Movies';
+import moviesData from '../../utils/movies';
+import SavedMovies from '../SavedMovies/SavedMovies';
 import Footer from '../Footer/Footer';
 
 function App() {
@@ -15,15 +18,7 @@ function App() {
   const closeBurger = () => {
     setBurgerOpen(false);
   };
-  React.useEffect(() => {
-    const closeByEvent = (evt) => {
-      if (evt.key === 'Escape') {
-        setBurgerOpen(false);
-      }
-    };
-    document.addEventListener('keydown', closeByEvent);
-    return () => document.removeEventListener('keydown', closeByEvent);
-  }, []);
+
   return (
     <>
       <Route exact path={headRoutes}>
@@ -32,7 +27,12 @@ function App() {
       <Route exact path="/">
         <Main />
       </Route>
-      <Route path="/movies" />
+      <Route path="/movies">
+        <Movies movies={moviesData} />
+      </Route>
+      <Route path="/saved-movies">
+        <SavedMovies movies={moviesData} />
+      </Route>
       <Route exact path={footRoutes}>
         <Footer />
       </Route>
