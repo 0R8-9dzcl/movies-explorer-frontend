@@ -18,7 +18,24 @@ function App() {
   const closeBurger = () => {
     setBurgerOpen(false);
   };
-
+  React.useEffect(() => {
+    const closeByEsc = (evt) => {
+      if (evt.key === 'Escape') {
+        setBurgerOpen(false);
+      }
+    };
+    const closeByClick = (evt) => {
+      if (evt.target.classList.contains('nav_type_logged')) {
+        setBurgerOpen(false);
+      }
+    };
+    window.addEventListener('keydown', closeByEsc);
+    document.addEventListener('click', closeByClick);
+    return () => {
+      window.removeEventListener('keydown', closeByEsc);
+      document.removeEventListener('click', closeByClick);
+    };
+  }, []);
   return (
     <>
       <Route exact path={headRoutes}>
