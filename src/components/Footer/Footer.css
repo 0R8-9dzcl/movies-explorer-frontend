@@ -59,9 +59,9 @@
     margin: 0;
   }
 }
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 480px) {
   .footer {
-    padding: 0 10px 20px;
+    padding: 38px 10px 20px;
   }
   .footer__title {
     margin: 0px auto 27px;

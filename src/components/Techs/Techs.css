@@ -78,7 +78,7 @@
     padding: 20px 0
   }
 }
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 480px) {
   .techs__title {
     line-height: 22px;
     font-size: 18px;

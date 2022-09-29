@@ -29,7 +29,7 @@
   text-decoration: none;
   border-bottom: solid 1px;
 }
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 480px) {
   .nav-land__list {
     gap: 0 24px;
   }

@@ -157,9 +157,9 @@
     padding: 0px 0px 19px;
   }
 }
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 630px) {
   .portfolio {
-    padding: 0px 14px 38px;
+    padding: 0px 14px;
   }
   .portfolio__container {
     grid-template-rows: 121px 452px 56px 36px 151px 88px 61px 274px;

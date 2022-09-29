@@ -78,7 +78,7 @@
     grid-template-columns: 1.06fr 4fr;
   }
 }
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 480px) {
   .about__title {
     font-size: 18px;
     line-height: 22px;
