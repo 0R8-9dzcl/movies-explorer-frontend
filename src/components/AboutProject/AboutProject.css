@@ -77,6 +77,12 @@
     margin: 95px 50px 84px;
     grid-template-columns: 1.06fr 4fr;
   }
+  .about__schedule-span {
+    font-family: 'Suisse Intl';
+  }
+  .about__schedule-span_type_back, .about__schedule-span_type_front {
+    font-family: 'Inter';
+  }
 }
 @media screen and (max-width: 480px) {
   .about__title {
