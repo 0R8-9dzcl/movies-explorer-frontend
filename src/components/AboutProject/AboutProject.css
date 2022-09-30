@@ -79,6 +79,7 @@
   }
   .about__schedule-span {
     font-family: 'Suisse Intl';
+    padding: 10px;
   }
   .about__schedule-span_type_back, .about__schedule-span_type_front {
     font-family: 'Inter';
