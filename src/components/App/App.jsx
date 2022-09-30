@@ -6,18 +6,23 @@ import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import moviesData from '../../utils/movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
+import Profile from '../Profile/Profile';
 import Footer from '../Footer/Footer';
 
 function App() {
-  const [burgerOpen, setBurgerOpen] = React.useState(false);
+  const [burgerOpen, setBurgerOpen] = React.useState(false); // стейт бургера
+  const [profileEdit, setProfileEdit] = React.useState(false); // стейт редактирования профиля
   const headRoutes = ['/movies', '/saved-movies', '/profile', '/']; // роуты где отбражется хэдер
   const footRoutes = ['/movies', '/saved-movies', '/']; // роуты где отбражется футер
+  // открываем бургер меню
   const openBurger = () => {
     setBurgerOpen(true);
   };
+  // закрываем бургер меню
   const closeBurger = () => {
     setBurgerOpen(false);
   };
+  // вешаем слушатели на бургер меню
   React.useEffect(() => {
     const closeByEsc = (evt) => {
       if (evt.key === 'Escape') {
@@ -36,6 +41,13 @@ function App() {
       document.removeEventListener('click', closeByClick);
     };
   }, []);
+  // редактирование профиля
+  const editUser = () => {
+    setProfileEdit(true);
+  };
+  const saveUser = () => {
+    setProfileEdit(false);
+  };
   return (
     <>
       <Route exact path={headRoutes}>
@@ -49,6 +61,9 @@ function App() {
       </Route>
       <Route path="/saved-movies">
         <SavedMovies movies={moviesData} />
+      </Route>
+      <Route path="/profile">
+        <Profile editUser={editUser} saveUser={saveUser} profileEdit={profileEdit} />
       </Route>
       <Route exact path={footRoutes}>
         <Footer />

@@ -1,0 +1,123 @@
+.profile {
+  max-width: 1440px;
+  margin: 74px auto 70px;
+}
+.profile__form {
+  display: flex;
+  max-width: 410px;
+  flex-direction: column;
+  margin: auto;
+  position: relative;
+  height: calc(100vh - 218px);
+  min-height: 500px;
+}
+.profile__title {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+  margin: 0 0 107px;
+}
+.profile__label {
+  height: 47px;
+  border-bottom: 1px #000 solid;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.profile__label:last-of-type {
+  border: none;
+}
+.profile__input-name {
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+  min-width: fit-content;
+  position: absolute;
+}
+.profile__input {
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: right;
+  border: none;
+  padding: 17px 0;
+  width: 100%;
+  outline: none;
+  pointer-events:none;
+}
+.profile__input_type_active {
+  pointer-events: all;
+}
+.profile__buttons {
+  list-style-type: none;
+  text-align: center;
+  align-self: center;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  bottom: 0;
+  width: 100% ;
+}
+.profile__button {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  border: none;
+  background-color: inherit;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
+}
+.profile__button_type_logout {
+  margin-top: 13px;
+  color: #FF3055;
+}
+.profile__button_type_submit {
+  text-align: center;
+  color: #fff;
+  background-color: #3456F3;
+  width: 100%;
+  height: 45px;
+  align-self: center;
+  border-radius: 3px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.profile__button_type_active {
+  visibility: visible;
+  opacity: 1;
+}
+@media screen and (max-width: 768px) {
+  .profile {
+    margin: 236px auto 70px;
+  }
+  .profile__form {
+    height: calc(100vh - 579px);
+    min-height: 446px;
+  }
+  .profile__title {
+    margin: 0 0 80px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .profile {
+    margin: 70px auto 40px;
+  }
+  .profile__form {
+    max-width: calc(100% - 60px);
+    height: calc(100vh - 184px);
+    min-height: 596px;
+  }
+  .profile__title {
+    margin: 0px 0 64px;
+  }
+  .profile__button {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
