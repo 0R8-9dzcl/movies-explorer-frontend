@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './NavTab.css';
 
 function NavTab() {
@@ -6,13 +7,28 @@ function NavTab() {
       <nav className="nav-land__container">
         <ul className="nav-land__list">
           <li>
-            <a className="nav-land__link" href="#about-project">О проекте</a>
+            <Link
+              className="link nav-land__link"
+              to={{ pathname: '/', hash: '#about-project' }}
+            >
+              О проекте
+            </Link>
           </li>
           <li>
-            <a className="nav-land__link" href="#techs">Технологии</a>
+            <Link
+              className="link nav-land__link"
+              to={{ pathname: '/', hash: '#techs' }}
+            >
+              Технологии
+            </Link>
           </li>
           <li>
-            <a className="nav-land__link" href="#about-me">Студент</a>
+            <Link
+              className="link nav-land__link"
+              to={{ pathname: '/', hash: '#about-me' }}
+            >
+              Студент
+            </Link>
           </li>
         </ul>
       </nav>
