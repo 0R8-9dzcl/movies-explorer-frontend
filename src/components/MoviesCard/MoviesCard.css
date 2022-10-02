@@ -31,16 +31,25 @@
 }
 .movie__saved {
   position: absolute;
+  padding: 0;
   top: 0px;
   right: 12px;
   height: 16px;
   width: 16px;
-  background: center url('../../images/movie__save.svg') #FFFFFF no-repeat;
+  background: center #FFFFFF no-repeat;
   box-shadow: 0px 3px 6px rgb(0 0 0 / 9%);
   border-radius: 50px;
   outline: none;
-  border: none;
+  border: 2px #fff solid;
 }
+.movie__saved_type_active {
+  background-color: #2BE080;
+}
+.movie__saved_type_delete {
+  background-image: url('../../images/movie__delete.svg');
+  box-shadow: none;
+}
+
 @media screen and (max-width: 768px) {
   .movie__img {
     width: 339px;
