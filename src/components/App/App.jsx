@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -7,12 +7,18 @@ import Movies from '../Movies/Movies';
 import moviesData from '../../utils/movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
+import Login from '../Login/Login';
+import Register from '../Register/Register';
+import PageNotFound from '../PageNotFound/PageNotFound';
 import Footer from '../Footer/Footer';
 
 function App() {
+  const location = useLocation();
+  const { key, hash } = useLocation();
   const [burgerOpen, setBurgerOpen] = React.useState(false); // стейт бургера
   const [profileEdit, setProfileEdit] = React.useState(false); // стейт редактирования профиля
-  const headRoutes = ['/movies', '/saved-movies', '/profile', '/']; // роуты где отбражется хэдер
+  // роуты где отбражется хэдер
+  const headRoutes = ['/movies', '/saved-movies', '/profile', '/', '/signup', '/signin'];
   const footRoutes = ['/movies', '/saved-movies', '/']; // роуты где отбражется футер
   // открываем бургер меню
   const openBurger = () => {
@@ -41,6 +47,17 @@ function App() {
       document.removeEventListener('click', closeByClick);
     };
   }, []);
+  // закрытие бургера при переходе
+  React.useEffect(() => {
+    setBurgerOpen(false);
+  }, [location]);
+  // перемешение к id
+  React.useEffect(() => {
+    if (hash) {
+      const targetElement = document.getElementById(hash.substring(1));
+      targetElement?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [key, hash]);
   // редактирование профиля
   const editUser = () => {
     setProfileEdit(true);
@@ -50,9 +67,14 @@ function App() {
   };
   return (
     <>
-      <Route exact path={headRoutes}>
-        <Header onOpen={openBurger} onClose={closeBurger} burgerOpen={burgerOpen} />
-      </Route>
+      <Switch>
+        <Route exact path={headRoutes}>
+          <Header onOpen={openBurger} onClose={closeBurger} burgerOpen={burgerOpen} />
+        </Route>
+        <Route path="*">
+          <PageNotFound />
+        </Route>
+      </Switch>
       <Route exact path="/">
         <Main />
       </Route>
@@ -65,10 +87,15 @@ function App() {
       <Route path="/profile">
         <Profile editUser={editUser} saveUser={saveUser} profileEdit={profileEdit} />
       </Route>
+      <Route path="/signin">
+        <Login />
+      </Route>
+      <Route path="/signup">
+        <Register />
+      </Route>
       <Route exact path={footRoutes}>
         <Footer />
       </Route>
-
     </>
   );
 }
