@@ -13,8 +13,7 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 import Footer from '../Footer/Footer';
 
 function App() {
-  const location = useLocation();
-  const { key, hash } = useLocation();
+  const { pathname, key, hash } = useLocation();
   const [burgerOpen, setBurgerOpen] = React.useState(false); // стейт бургера
   const [profileEdit, setProfileEdit] = React.useState(false); // стейт редактирования профиля
   // роуты где отбражется хэдер
@@ -50,7 +49,7 @@ function App() {
   // закрытие бургера при переходе
   React.useEffect(() => {
     setBurgerOpen(false);
-  }, [location]);
+  }, [pathname]);
   // перемешение к id
   React.useEffect(() => {
     if (hash) {
