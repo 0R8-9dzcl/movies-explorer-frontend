@@ -50,7 +50,7 @@
   border: none;
 }
 .profile__label_type_auth:last-of-type {
-  border-bottom: 1px #000 solid;
+  border-bottom: 1px #E8E8E8 solid;
 }
 .profile__label_type_auth:focus-within {
   border-bottom-color: #3456F3;
@@ -75,6 +75,7 @@
   visibility: hidden;
   opacity: 0;
   transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
+  top: auto;
   left: 0;
   bottom: -18px;
 }
