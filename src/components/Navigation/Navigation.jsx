@@ -26,7 +26,7 @@ function Navigator({ onClose, burgerOpen }) {
           <ul className="nav__films">
             <li>
               <NavLink
-                className="nav__film nav__link_type_main"
+                className="link nav__film nav__link_type_main"
                 activeClassName="nav__link_type_active"
                 exact
                 to="/"
@@ -36,7 +36,7 @@ function Navigator({ onClose, burgerOpen }) {
             </li>
             <li>
               <NavLink
-                className="nav__film"
+                className="link nav__film"
                 activeClassName="nav__link_type_active"
                 to="/movies"
               >
@@ -45,7 +45,7 @@ function Navigator({ onClose, burgerOpen }) {
             </li>
             <li>
               <NavLink
-                className="nav__film"
+                className="link nav__film"
                 activeClassName="nav__link_type_active"
                 to="/saved-movies"
               >
@@ -57,16 +57,16 @@ function Navigator({ onClose, burgerOpen }) {
         <ul className="nav__list">
           <Route exact path="/">
             <li>
-              <Link className="nav__link nav__link_type_land" to="/sign-up">Регистрация</Link>
+              <Link className="link nav__link nav__link_type_land" to="/signup">Регистрация</Link>
             </li>
             <li>
-              <Link className="nav__link nav__link_type_land nav__link_type_login" to="/sign-in">Войти</Link>
+              <Link className="link nav__link nav__link_type_land nav__link_type_login" to="/signin">Войти</Link>
             </li>
           </Route>
           <Route exact path={userRoutes}>
             <li>
               <NavLink
-                className="nav__link nav__link_type_profile"
+                className="link nav__link nav__link_type_profile"
                 activeClassName="nav__link_type_active"
                 to="/profile"
               >

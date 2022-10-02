@@ -12,7 +12,7 @@ function Movie({ imgUrl, title, duration }) {
       <div className="movie__container">
         <h2 className="movie__title">{title}</h2>
         <p className="movie__duration">{transDuration()}</p>
-        <button type="button" aria-label="сохр. фильм" className="movie__saved" />
+        <button type="button" aria-label="сохр. фильм" className="button movie__saved" />
       </div>
     </li>
   );

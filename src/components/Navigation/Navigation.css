@@ -23,7 +23,6 @@
 .nav__link {
   align-items: center;
   color: #fff;
-  text-decoration: none;
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
@@ -45,7 +44,6 @@
 }
 .nav__film {
   align-items: center;
-  text-decoration: none;
   color: #000;
   font-weight: 400;
   font-size: 13px;
@@ -119,8 +117,7 @@
     right: 0;
     bottom: 0;
   }
-  .nav_type_logged
-  .nav__container {
+  .nav_type_logged .nav__container {
     justify-content: space-between;
     top: 0;
     padding: 0;
@@ -181,8 +178,10 @@
   .nav {
     margin-right: 14px;
   }
-  .nav_type_burger-menu {
+  .nav_type_logged {
     margin: 0;
+  }
+  .nav_type_burger-menu {
     width: 100%;
   }
   .nav__close-burger {

@@ -21,7 +21,7 @@ function MoviesCardList({ movies }) {
       </ul>
       <Route path="/movies">
         <div className="movies__more">
-          <button type="button" className="movies__more-button">Ещё</button>
+          <button type="button" className="button movies__more-button">Ещё</button>
         </div>
       </Route>
     </section>

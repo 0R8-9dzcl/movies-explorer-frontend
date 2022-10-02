@@ -17,15 +17,15 @@ function Portfolio() {
           начал заниматься фриланс-заказами и&nbsp;ушёл с&nbsp;постоянной работы.
         </p>
         <ul className="portfolio__social-list">
-          <li><a href="https://t.me/Foodfox_EVGENIY_ALEKSEEV" target="_blank" rel="noreferrer" className="portfolio__social-item">Telegram</a></li>
-          <li><a href="https://github.com/0R8-9dzcl" target="_blank" rel="noreferrer" className="portfolio__social-item">Github</a></li>
+          <li><a href="https://t.me/Foodfox_EVGENIY_ALEKSEEV" target="_blank" rel="noreferrer" className="link portfolio__social-item">Telegram</a></li>
+          <li><a href="https://github.com/0R8-9dzcl" target="_blank" rel="noreferrer" className="link portfolio__social-item">Github</a></li>
         </ul>
         <img src={myPhoto} alt="моя фотография" className="portfolio__photo" />
         <h3 className="portfolio__works">Портфолио</h3>
         <ul className="portfolio__work-list">
-          <li className="porfolio__work-item"><a href="https://0r8-9dzcl.github.io/how-to-learn/" target="_blank" rel="noreferrer">Статичный сайт</a></li>
-          <li className="porfolio__work-item"><a href="https://0r8-9dzcl.github.io/russian-travel/" target="_blank" rel="noreferrer">Адаптивный сайт</a></li>
-          <li className="porfolio__work-item"><a href="https://0r8-9dzcl.nomoredomains.work/" target="_blank" rel="noreferrer">Одностраничное приложение</a></li>
+          <li className="porfolio__work-item"><a className="link" href="https://0r8-9dzcl.github.io/how-to-learn/" target="_blank" rel="noreferrer">Статичный сайт</a></li>
+          <li className="porfolio__work-item"><a className="link" href="https://0r8-9dzcl.github.io/russian-travel/" target="_blank" rel="noreferrer">Адаптивный сайт</a></li>
+          <li className="porfolio__work-item"><a className="link" href="https://0r8-9dzcl.nomoredomains.work/" target="_blank" rel="noreferrer">Одностраничное приложение</a></li>
         </ul>
       </div>
     </section>
