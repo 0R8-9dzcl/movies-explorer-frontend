@@ -1,0 +1,55 @@
+.losted {
+  max-width: 1440px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin: 246px auto 60px;
+  height: calc(100vh - 306px);
+  text-align: center;
+}
+.losted__title {
+  font-weight: 400;
+  font-size: 140px;
+  line-height: 169px;
+  margin: 0;
+}
+.losted__text {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  margin: 4px 0;
+}
+.losted__back {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #3456F3;
+  border: none;
+  outline: none;
+  background: inherit;
+  margin: 0;
+}
+@media screen and (max-width: 768px) {
+  .losted {
+    margin: 408px auto 222px;
+    height: calc(100vh - 628px);
+  }
+}
+@media screen and (max-width: 480px) {
+  .losted {
+    margin: 329px auto 30px;
+    height: calc(100vh - 359px);
+}
+  .losted__title {
+    font-size: 80px;
+    line-height: 97px;
+  }
+  .losted__text {
+    font-size: 12px;
+    line-height: 15px;
+    margin: 10px 0;
+  }
+}

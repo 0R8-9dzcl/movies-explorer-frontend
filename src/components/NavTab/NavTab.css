@@ -1,0 +1,38 @@
+.nav-land {
+  background-color: #000;
+  width: 100%;
+  position:-webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.nav-land__container {
+  margin: 0 auto;
+}
+.nav-land__list {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0 40px;
+  margin: 0;
+  padding: 0;
+  height: 66px;
+}
+.nav-land__link {
+  display: block;
+  color: #fff;
+  margin: 0;
+  line-height: 16px;
+  font-size: 13px;
+  font-weight: 500;
+  border-bottom: solid 1px;
+}
+@media screen and (max-width: 480px) {
+  .nav-land__list {
+    gap: 0 24px;
+  }
+  .nav-land__link {
+    font-size: 11px;
+  }
+}

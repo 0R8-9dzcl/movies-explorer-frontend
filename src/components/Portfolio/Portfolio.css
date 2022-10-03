@@ -1,0 +1,221 @@
+.portfolio {
+  margin: 0 auto 0;
+  padding: 0 70px 85px;
+  max-width: 1440px;
+  display: block;
+}
+.portfolio__container {
+  margin: 0 auto;
+  padding: 0;
+  display: grid;
+  grid-template-rows: 161px 126px 49px 201px 100px 86px 253px;
+  grid-template-areas:
+    "title title"
+    "name photo"
+    "prof photo"
+    "about-me photo"
+    "socials photo"
+    "works ."
+    "work-list work-list";
+}
+.portfolio__title {
+  grid-area: title;
+  font-weight: 400;
+  font-size: 22px;
+  margin: 110px 0 0;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  padding: 0 0 23px 0;
+  border-bottom: solid 1px;
+}
+.portfolio__name {
+  max-width: 600px;
+  margin: 66px 0px;
+  grid-area: name;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  letter-spacing: -0.04em;
+}
+.portfolio__profession {
+  max-width: 600px;
+  margin: 16px 0px;
+  grid-area: prof;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+}
+.portfolio__about-me {
+  max-width: 600px;
+  margin: 13px 40px 0 0px;
+  grid-area: about-me;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+}
+.portfolio__social-list {
+  grid-area: socials;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  gap: 0 20px;
+}
+.portfolio__social-item {
+  color: #000;
+}
+.portfolio__photo {
+  grid-area: photo;
+  border-radius: 10px;
+  object-fit: cover;
+  justify-self: end;
+  width: 270px;
+  height: 327px;
+  margin-top: 66px;
+}
+.portfolio__works {
+  margin: 18px 0px;
+  grid-area: works;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  color: #A0A0A0;
+}
+.portfolio__work-list {
+  grid-area: work-list;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 50px;
+  letter-spacing: -0.04em;
+  position: relative;
+}
+.porfolio__work-item {
+  margin: 0px 0px 20px;
+  padding: 0px 0 20px;
+  display: block;
+  border-bottom: solid #e8e8e8 1px;
+  position: relative;
+}
+.porfolio__work-item:after {
+  background-image: url('../../images/potfolio__arrow.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 17px;
+  width: 18px;
+  position: absolute;
+  top: 27%;
+  right: 6px;
+  content: '';
+}
+.porfolio__work-item:last-of-type {
+  border-bottom: none;
+}
+@media screen and (max-width: 768px) {
+  .portfolio {
+    padding: 0px 50px 49px;
+  }
+  .portfolio__container {
+    grid-template-rows: 140px 106px 49px 200px 92px 86px 253px;
+  }
+  .portfolio__title {
+    margin: 90px 0 0;
+  }
+  .portfolio__name {
+    margin: 67px 0 0;
+    font-size: 40px;
+    line-height: 40px;
+  }
+  .portfolio__photo {
+    width: 255px;
+    height: 307px;
+    margin-top: 66px;
+  }
+  .portfolio__profession {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .portfolio__about-me {
+    margin: 5px 50px 0 0px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .portfolio__work-list {
+    font-size: 28px;
+  }
+  .porfolio__work-item {
+    padding: 0px 0px 19px;
+  }
+}
+@media screen and (max-width: 630px) {
+  .portfolio {
+    padding: 0px 14px;
+  }
+  .portfolio__container {
+    grid-template-rows: 121px 452px 56px 36px 151px 88px 61px 274px;
+    grid-template-areas:
+    "title"
+    "photo"
+    "name"
+    "prof"
+    "about-me"
+    "socials"
+    "works"
+    "work-list";
+  }
+  .portfolio__title {
+    font-size: 18px;
+    line-height: 22px;
+    margin: 71px 0 0;
+  }
+  .portfolio__photo {
+    justify-self: center;
+    height: 352px;
+    width: 292px;
+    margin-top: 60px;
+  }
+  .portfolio__name {
+    margin: 0;
+    font-size: 30px;
+    line-height: 36px;
+  }
+  .portfolio__profession {
+    font-size: 11px;
+    line-height: 16px;
+    margin: 0;
+  }
+  .portfolio__about-me {
+    margin: 0;
+    font-size: 11px;
+    line-height: 16px;
+  }
+  .portfolio__social-list {
+    gap: 0 26px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+  .portfolio__works {
+    margin: 0;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .portfolio__work-list {
+    font-size: 18px;
+    line-height: 28px;
+  }
+  .porfolio__work-item {
+    padding: 0px 0px 18px;
+    margin: 0px 0px 21px;
+  }
+  .porfolio__work-item:after {
+    top: 7px;
+    right: 4px;
+    height: 11px;
+    width: 11px;
+  }
+}

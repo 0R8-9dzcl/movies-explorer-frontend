@@ -1,0 +1,128 @@
+.search {
+  max-width: 1300px;
+  margin: auto;
+  padding: 70px 70px 80px;
+}
+.search__form {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.search__button {
+  position: absolute;
+  right: 70px;
+}
+.search__input {
+  border: 1px solid #aaa;
+  border-radius: 8px;
+  padding: 25px 24px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  color: #A0A0A0;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
+}
+.search__input:focus {
+  border-color: #3456F3;
+}
+.search__button {
+  padding: 17px 29px 17px 28px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  border: none;
+  background-color: #3456F3;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  color: #FFFFFF;
+}
+.search__label {
+  gap: 15px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  padding: 0px 0 17px;
+  border-bottom: 1px #aaa solid;
+}
+.search__short-checkbox {
+  width: 36px;
+  height: 20px;
+  position: relative;
+  margin: 26px 0px;
+}
+.search__short-checkbox:before {
+  background-color: #ebebeb;
+  content: '';
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  display: block;
+  border-radius: 20px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
+}
+.search__short-checkbox:after {
+  background-color: #fff;
+  content: '';
+  position: absolute;
+  left: 5.56%;
+  right: 50%;
+  top: 10%;
+  bottom: 10%;
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
+}
+.search__short-checkbox:checked:before {
+  background-color: #2BE080;
+}
+.search__short-checkbox:checked:after {
+  left: 50%;
+  right: 5.56%;
+  background-color: #f5f5f5;
+}
+@media screen and (max-width:768px) {
+  .search {
+    padding: 70px 30px 80px;
+  }
+  .search__label {
+    padding: 0px 0 24px;
+  }
+}
+@media screen and (max-width:480px) {
+  .search {
+    padding: 70px 14px 50px;
+  }
+  .search__input {
+    font-size: 16px;
+    line-height: 16px;
+    padding: 17px 11px;
+  }
+  .search__button {
+    font-size: 14px;
+    line-height: 18px;
+  }
+  .search__button {
+    font-size: 14px;
+    line-height: 18px;
+    top: 6px;
+    right: 6px;
+    padding: 13px 18px 13px 19px;
+  }
+  .search__label {
+    font-size: 11px;
+    line-height: 18px;
+    gap: 13px;
+    padding: 0px 0 33px;
+  }
+  .search__short-checkbox {
+    margin: 30px 0px;
+  }
+}
