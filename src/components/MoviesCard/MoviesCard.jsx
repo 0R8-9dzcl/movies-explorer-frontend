@@ -1,8 +1,8 @@
-import { useLocation } from 'react-router-dom';
 import './MoviesCard.css';
 
-function Movie({ imgUrl, title, duration }) {
-  const location = useLocation();
+function MoviesCard({
+  imgUrl, title, duration, pathname,
+}) {
   // рандомный активатор лайков
   const isLiked = () => {
     if (Math.floor(Math.random() * 10) < 5) {
@@ -24,11 +24,11 @@ function Movie({ imgUrl, title, duration }) {
         <button
           type="button"
           aria-label="сохр. фильм"
-          className={`button movie__saved${location.pathname === '/movies'
+          className={`button movie__saved${pathname === '/movies'
             ? isLiked() : ' movie__saved_type_delete'}`}
         />
       </div>
     </li>
   );
 }
-export default Movie;
+export default MoviesCard;

@@ -2,7 +2,7 @@ import './MoviesCardList.css';
 import { Route } from 'react-router-dom';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ movies }) {
+function MoviesCardList({ movies, pathname }) {
   const sliceMovies = movies.slice(0, 16);
   return (
     <section className="movies">
@@ -15,15 +15,16 @@ function MoviesCardList({ movies }) {
               imgUrl={movie.image.url}
               title={movie.nameRU}
               duration={movie.duration}
+              pathname={pathname}
             />
           ))
         }
       </ul>
-      <Route path="/movies">
-        <div className="movies__more">
+      <div className="movies__more">
+        <Route path="/movies">
           <button type="button" className="button movies__more-button">Ещё</button>
-        </div>
-      </Route>
+        </Route>
+      </div>
     </section>
   );
 }

@@ -20,7 +20,7 @@ function App() {
   const [profileEdit, setProfileEdit] = React.useState(false); // стейт редактирования профиля
   // currenUser
   const [currentUser, setCurrentUser] = React.useState({ _id: '', email: '', name: '' });
-  const [loggedIn, setLoggedIn] = React.useState(false);// стейт логина
+  const [loggedIn, setLoggedIn] = React.useState(true);// стейт логина
   // роуты где отбражется хэдер
   const headRoutes = ['/movies', '/saved-movies', '/profile', '/', '/signup', '/signin'];
   const footRoutes = ['/movies', '/saved-movies', '/']; // роуты где отбражется футер
@@ -103,6 +103,7 @@ function App() {
             onOpen={openBurger}
             onClose={closeBurger}
             burgerOpen={burgerOpen}
+            pathname={pathname}
           />
         </Route>
         <Route path="*">
@@ -113,16 +114,21 @@ function App() {
         <Main />
       </Route>
       <Route path="/movies">
-        <Movies movies={moviesData} />
+        <Movies movies={moviesData} pathname={pathname} />
       </Route>
       <Route path="/saved-movies">
-        <SavedMovies movies={moviesData} />
+        <SavedMovies movies={moviesData} pathname={pathname} />
       </Route>
       <Route path="/profile">
-        <Profile editUser={editUser} saveUser={saveUser} profileEdit={profileEdit} />
+        <Profile
+          editUser={editUser}
+          saveUser={saveUser}
+          profileEdit={profileEdit}
+          pathname={pathname}
+        />
       </Route>
       <Route path="/signin">
-        <Login />
+        <Login pathname={pathname} />
       </Route>
       <Route path="/signup">
         <Register />

@@ -1,6 +1,6 @@
 import UserForm from '../UserForm/UserForm';
 
-function Login() {
+function Login({ pathname }) {
   return (
     <main>
       <section className="profile profile_type_auth">
@@ -11,6 +11,7 @@ function Login() {
           question="Ещё не зарегистрированы?"
           route="/signup"
           linkText="Регистрация"
+          pathname={pathname}
         >
           <label htmlFor="email" className="profile__label profile__label_type_auth">
             <span className="profile__span profile__span_type_auth">E-mail</span>

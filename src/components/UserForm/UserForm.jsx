@@ -1,5 +1,5 @@
 import './UserForm.css';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function UserForm({
   children,
@@ -10,8 +10,9 @@ function UserForm({
   question,
   route,
   linkText,
+  pathname,
 }) {
-  const checkLocation = (useLocation().pathname === '/profile');
+  const checkLocation = (pathname === '/profile');
   return (
     <form className={`profile__form${checkLocation ? '' : ' profile__form_type_auth'}`} onSubmit={onSubmit}>
       <h2 className={`profile__title${checkLocation ? '' : ' profile__title_type_auth'}`}>{title}</h2>
