@@ -16,6 +16,7 @@
 }
 .movies__more {
   width: calc(100% - 140px);
+  min-height: 140px;
   margin: 30px auto 0;
   display: flex;
   justify-content: center;
