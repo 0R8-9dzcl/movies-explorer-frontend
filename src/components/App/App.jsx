@@ -1,5 +1,7 @@
 import React from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import {
+  Route, Switch, useHistory, useLocation,
+} from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -16,17 +18,18 @@ import mainApi from '../../utils/MainApi';
 
 function App() {
   const { pathname, key, hash } = useLocation();
+  const history = useHistory();
   const [burgerOpen, setBurgerOpen] = React.useState(false); // стейт бургера
   const [profileEdit, setProfileEdit] = React.useState(false); // стейт редактирования профиля
   // currenUser
   const [currentUser, setCurrentUser] = React.useState({ _id: '', email: '', name: '' });
-  const [loggedIn, setLoggedIn] = React.useState(true);// стейт логина
+  const [loggedIn, setLoggedIn] = React.useState(false);// стейт логина
   // роуты где отбражется хэдер
   const headRoutes = ['/movies', '/saved-movies', '/profile', '/', '/signup', '/signin'];
   const footRoutes = ['/movies', '/saved-movies', '/']; // роуты где отбражется футер
   React.useEffect(() => {
     if (loggedIn) {
-      mainApi.getUserInfo()
+      mainApi.getUser()
         .then((userInfo) => {
           setCurrentUser(userInfo.data);
         })
@@ -35,7 +38,7 @@ function App() {
   }, [loggedIn]);
   // провеарка токена
   const tokenCheck = () => {
-    mainApi.getUserInfo()
+    mainApi.getUser()
       .then((data) => {
         if (data) {
           setLoggedIn(true);
@@ -86,12 +89,58 @@ function App() {
       targetElement?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [key, hash]);
+  // регистрация пользователя
+  const handleRegister = (name, email, password) => {
+    mainApi.register(name, email, password)
+      .then((res) => {
+        history.push('/signin');
+        return res;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  // логин пользователя
+  const handleLogin = (email, password) => {
+    mainApi.login(email, password)
+      .then((user) => {
+        setCurrentUser(user.data);
+        setLoggedIn(true);
+        history.push('/movies');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  // выход пользователя
+  const handleLogout = () => {
+    mainApi.logout()
+      .then((res) => {
+        if (res) {
+          setLoggedIn(false);
+          setCurrentUser({ _id: '', email: '', name: '' });
+          history.push('/');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   // редактирование профиля
   const editUser = () => {
     setProfileEdit(true);
   };
-  const saveUser = () => {
-    setProfileEdit(false);
+  const saveUser = (name, email) => {
+    mainApi.patchUser(name, email)
+      .then((user) => {
+        if (user) {
+          setCurrentUser(user.data);
+          setProfileEdit(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -125,13 +174,14 @@ function App() {
           saveUser={saveUser}
           profileEdit={profileEdit}
           pathname={pathname}
+          onLogout={handleLogout}
         />
       </Route>
       <Route path="/signin">
-        <Login pathname={pathname} />
+        <Login pathname={pathname} onSubmit={handleLogin} />
       </Route>
       <Route path="/signup">
-        <Register />
+        <Register pathname={pathname} onSubmit={handleRegister} />
       </Route>
       <Route exact path={footRoutes}>
         <Footer />

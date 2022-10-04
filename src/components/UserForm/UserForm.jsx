@@ -2,6 +2,7 @@ import './UserForm.css';
 import { Link } from 'react-router-dom';
 
 function UserForm({
+  formName,
   children,
   onSubmit,
   boolean,
@@ -14,7 +15,7 @@ function UserForm({
 }) {
   const checkLocation = (pathname === '/profile');
   return (
-    <form className={`profile__form${checkLocation ? '' : ' profile__form_type_auth'}`} onSubmit={onSubmit}>
+    <form className={`profile__form${checkLocation ? '' : ' profile__form_type_auth'}`} name={formName} onSubmit={onSubmit}>
       <h2 className={`profile__title${checkLocation ? '' : ' profile__title_type_auth'}`}>{title}</h2>
       {children}
       <div className={`profile__button-container ${
