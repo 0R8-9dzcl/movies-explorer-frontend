@@ -22,7 +22,7 @@
 }
 .nav__link {
   align-items: center;
-  color: #fff;
+  color: inherit;
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
@@ -44,20 +44,22 @@
 }
 .nav__film {
   align-items: center;
-  color: #000;
   font-weight: 400;
   font-size: 13px;
   line-height: 18px;
 }
 .nav__link_type_profile {
   position: relative;
-  color: #000;;
   border-radius: 40px;
   box-shadow: 0px 3px 14px #00000014;
   padding: 4px 37px 4px 8px;
   font-weight: 400;
   font-size: 13px;
   line-height: 12px;
+}
+.header_theme_dark .nav__link_type_profile{
+  color: #000;
+  background-color: #b1d0d5;
 }
 .nav__link_type_active {
   font-weight: 500;
@@ -76,7 +78,7 @@
 .nav__close-burger {
   display: none;
   position: absolute;
-  background-color: #fff;
+  background-color: inherit;
   background-repeat: no-repeat;
   background-size: contain;
   border: none;
@@ -99,13 +101,13 @@
     visibility: hidden;
     opacity: 0;
     transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
+    z-index: 1;
   }
   .nav_type_burger-menu {
     width: 67.7%;
     visibility: visible;
     opacity: 1;
     position: fixed;
-    z-index: 1;
   }
   .nav_type_burger-menu:before {
     content: '';

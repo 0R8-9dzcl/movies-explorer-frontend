@@ -19,39 +19,6 @@ function Navigator({ loggedIn, onClose, burgerOpen }) {
     >
       <div className="nav__container">
         <Route exact path={userRoutes}>
-          <button type="button" className="nav__close-burger" onClick={closeBurger}>
-            <img src={closedBurger} alt="кнопка закрытия выпадающего меню" className="nav__close-burger-icon" />
-          </button>
-          <ul className="nav__films">
-            <li>
-              <NavLink
-                className="link nav__film nav__link_type_main"
-                activeClassName="nav__link_type_active"
-                exact
-                to="/"
-              >
-                Главная
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                className="link nav__film"
-                activeClassName="nav__link_type_active"
-                to="/movies"
-              >
-                Фильмы
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                className="link nav__film"
-                activeClassName="nav__link_type_active"
-                to="/saved-movies"
-              >
-                Сохранённые фильмы
-              </NavLink>
-            </li>
-          </ul>
           {!loggedIn ? (
             <ul className="nav__list">
               <li>
@@ -62,17 +29,53 @@ function Navigator({ loggedIn, onClose, burgerOpen }) {
               </li>
             </ul>
           ) : (
-            <ul className="nav__list">
-              <li>
-                <NavLink
-                  className="link nav__link nav__link_type_profile"
-                  activeClassName="nav__link_type_active"
-                  to="/profile"
-                >
-                  Аккаунт
-                </NavLink>
-              </li>
-            </ul>
+            <>
+              <button type="button" className="nav__close-burger" onClick={closeBurger}>
+                <img src={closedBurger} alt="кнопка закрытия выпадающего меню" className="nav__close-burger-icon" />
+              </button>
+              <ul className="nav__films">
+                <li>
+                  <NavLink
+                    className="link nav__film nav__link_type_main"
+                    activeClassName="nav__link_type_active"
+                    exact
+                    to="/"
+                  >
+                    Главная
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="link nav__film"
+                    activeClassName="nav__link_type_active"
+                    to="/movies"
+                  >
+                    Фильмы
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="link nav__film"
+                    activeClassName="nav__link_type_active"
+                    to="/saved-movies"
+                  >
+                    Сохранённые фильмы
+                  </NavLink>
+                </li>
+              </ul>
+              <ul className="nav__list">
+                <li>
+                  <NavLink
+                    className="link nav__link nav__link_type_profile"
+                    activeClassName="nav__link_type_active"
+                    to="/profile"
+                  >
+                    Аккаунт
+                  </NavLink>
+                </li>
+              </ul>
+
+            </>
           )}
         </Route>
       </div>

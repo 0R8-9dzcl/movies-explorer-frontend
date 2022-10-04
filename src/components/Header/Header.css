@@ -1,13 +1,11 @@
 .header {
-  height: 74px;
+  height: auto;
   width: 100%;
   background-color: #fff;
 }
 .header_theme_dark{
   background-color: #073042;
-}
-.header_type_logged {
-  height: auto;
+  color: #fff;
 }
 .header__container {
   display: flex;
@@ -51,8 +49,7 @@
   .header__logo-button_type_auth {
     margin: 233px 0px 0;
   }
-
-  .header_type_logged .header__burger {
+  .header__burger {
     display: block;
     height: 44px;
     width: 44px;
