@@ -11,11 +11,14 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import Footer from '../Footer/Footer';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 function App() {
   const { pathname, key, hash } = useLocation();
   const [burgerOpen, setBurgerOpen] = React.useState(false); // стейт бургера
   const [profileEdit, setProfileEdit] = React.useState(false); // стейт редактирования профиля
+	// currenUser
+	const [currentUser, setCurrentUser] = React.useState({ _id: '', email: '', name:'' });
   // роуты где отбражется хэдер
   const headRoutes = ['/movies', '/saved-movies', '/profile', '/', '/signup', '/signin'];
   const footRoutes = ['/movies', '/saved-movies', '/']; // роуты где отбражется футер
@@ -65,7 +68,7 @@ function App() {
     setProfileEdit(false);
   };
   return (
-    <>
+    <CurrentUserContext.Provider value={currentUser}>
       <Switch>
         {/* хэдер отобажается  на всех роутах кроме 404 поэтому здесь свич */}
         <Route exact path={headRoutes}>
@@ -96,7 +99,7 @@ function App() {
       <Route exact path={footRoutes}>
         <Footer />
       </Route>
-    </>
+    </CurrentUserContext.Provider value={currentUser}>
   );
 }
 
