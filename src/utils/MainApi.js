@@ -1,3 +1,4 @@
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["#checkOk"] }] */
 const BASE_URL = 'https://api.movies.explorer.nomoredomains.sbs';
 
 class MainApi {
@@ -6,7 +7,7 @@ class MainApi {
     this.headers = selector.headers;
   }
 
-  #checkOk = (res) => (res.ok ? this.res.json() : Promise.reject(res.status));
+  #checkOk = (res) => (res.ok ? res.json() : Promise.reject(res.status));
 
   // пользоваткельские запросы без куков
   register(name, email, password) {
@@ -18,16 +19,17 @@ class MainApi {
       .then((res) => this.#checkOk(res));
   }
 
+  // запросы с куками
   login(email, password) {
     return fetch(`${this.url}/signin`, {
       method: 'POST',
       headers: this.headers,
+      credentials: 'include',
       body: JSON.stringify({ email, password }),
     })
       .then((res) => this.#checkOk(res));
   }
 
-  // запросы с куками
   logout() {
     return fetch(`${this.url}/signout`, {
       method: 'POST',
@@ -37,7 +39,7 @@ class MainApi {
       .then((res) => this.#checkOk(res));
   }
 
-  getUserInfo() {
+  getUser() {
     return fetch(`${this.url}/users/me`, {
       method: 'GET',
       credentials: 'include',
@@ -46,7 +48,7 @@ class MainApi {
       .then((res) => this.#checkOk(res));
   }
 
-  setUserInfo(name, email) {
+  patchUser(name, email) {
     return fetch(`${this.url}/users/me`, {
       method: 'PATCH',
       credentials: 'include',
@@ -94,7 +96,7 @@ class MainApi {
 const mainApi = new MainApi({
   url: BASE_URL,
   headers: {
-    'Content-Type': 'application/x-www-form-urlencoded',
+    'Content-Type': 'application/json',
   },
 });
 export default mainApi;
