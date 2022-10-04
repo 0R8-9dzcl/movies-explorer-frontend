@@ -1,6 +1,8 @@
 import UserForm from '../UserForm/UserForm';
 
-function Profile({ editUser, saveUser, profileEdit }) {
+function Profile({
+  editUser, saveUser, profileEdit, pathname,
+}) {
   const onEdit = () => {
     editUser();
   };
@@ -16,6 +18,7 @@ function Profile({ editUser, saveUser, profileEdit }) {
           boolean={profileEdit}
           title="Привет, Виталий!"
           submitText="Сохранить"
+          pathname={pathname}
         >
           <label htmlFor="name" className="profile__label">
             <span className="profile__span">Имя</span>
