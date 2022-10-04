@@ -30,9 +30,11 @@ function Header({
         >
           <img className="header__logo" src={logo} alt="логотип сайта" />
         </Link>
-        <button type="button" className="button header__burger" onClick={openBurger}>
-          <img src={pathname === '/' ? burgeIconDark : burgeIcon} alt="кнопка откртия выпадающего меню" className="header__burger-icon" />
-        </button>
+        {loggedIn && (
+          <button type="button" className="button header__burger" onClick={openBurger}>
+            <img src={pathname === '/' ? burgeIconDark : burgeIcon} alt="кнопка откртия выпадающего меню" className="header__burger-icon" />
+          </button>
+        )}
         <Navigator loggedIn={loggedIn} onClose={onClose} burgerOpen={burgerOpen} />
       </div>
     </header>
