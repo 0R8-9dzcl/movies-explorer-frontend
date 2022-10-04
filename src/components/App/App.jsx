@@ -67,6 +67,7 @@ function App() {
   return (
     <>
       <Switch>
+        {/* хэдер отобажается  на всех роутах кроме 404 поэтому здесь свич */}
         <Route exact path={headRoutes}>
           <Header onOpen={openBurger} onClose={closeBurger} burgerOpen={burgerOpen} />
         </Route>
