@@ -2,20 +2,19 @@ import './Navigation.css';
 import {
   Link,
   NavLink,
-  Route, useLocation,
+  Route,
 } from 'react-router-dom';
 import closedBurger from '../../images/nav__close-burger.svg';
 
-function Navigator({ onClose, burgerOpen }) {
-  const userRoutes = ['/movies', '/saved-movies', '/profile'];
-  const location = useLocation();
+function Navigator({ loggedIn, onClose, burgerOpen }) {
+  const userRoutes = ['/', '/movies', '/saved-movies', '/profile'];
   const closeBurger = () => {
     onClose(false);
   };
   return (
     <nav
       className={
-        `nav${location.pathname === '/' ? '' : ' nav_type_logged'}${burgerOpen ? ' nav_type_burger-menu' : ''}`
+        `nav${!loggedIn ? '' : ' nav_type_logged'}${burgerOpen ? ' nav_type_burger-menu' : ''}`
       }
     >
       <div className="nav__container">
@@ -53,28 +52,29 @@ function Navigator({ onClose, burgerOpen }) {
               </NavLink>
             </li>
           </ul>
+          {!loggedIn ? (
+            <ul className="nav__list">
+              <li>
+                <Link className="link nav__link nav__link_type_land" to="/signup">Регистрация</Link>
+              </li>
+              <li>
+                <Link className="link nav__link nav__link_type_land nav__link_type_login" to="/signin">Войти</Link>
+              </li>
+            </ul>
+          ) : (
+            <ul className="nav__list">
+              <li>
+                <NavLink
+                  className="link nav__link nav__link_type_profile"
+                  activeClassName="nav__link_type_active"
+                  to="/profile"
+                >
+                  Аккаунт
+                </NavLink>
+              </li>
+            </ul>
+          )}
         </Route>
-        <ul className="nav__list">
-          <Route exact path="/">
-            <li>
-              <Link className="link nav__link nav__link_type_land" to="/signup">Регистрация</Link>
-            </li>
-            <li>
-              <Link className="link nav__link nav__link_type_land nav__link_type_login" to="/signin">Войти</Link>
-            </li>
-          </Route>
-          <Route exact path={userRoutes}>
-            <li>
-              <NavLink
-                className="link nav__link nav__link_type_profile"
-                activeClassName="nav__link_type_active"
-                to="/profile"
-              >
-                Аккаунт
-              </NavLink>
-            </li>
-          </Route>
-        </ul>
       </div>
     </nav>
 

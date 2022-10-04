@@ -12,16 +12,42 @@ import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import Footer from '../Footer/Footer';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
+import mainApi from '../../utils/MainApi';
 
 function App() {
   const { pathname, key, hash } = useLocation();
   const [burgerOpen, setBurgerOpen] = React.useState(false); // стейт бургера
   const [profileEdit, setProfileEdit] = React.useState(false); // стейт редактирования профиля
-	// currenUser
-	const [currentUser, setCurrentUser] = React.useState({ _id: '', email: '', name:'' });
+  // currenUser
+  const [currentUser, setCurrentUser] = React.useState({ _id: '', email: '', name: '' });
+  const [loggedIn, setLoggedIn] = React.useState(false);// стейт логина
   // роуты где отбражется хэдер
   const headRoutes = ['/movies', '/saved-movies', '/profile', '/', '/signup', '/signin'];
   const footRoutes = ['/movies', '/saved-movies', '/']; // роуты где отбражется футер
+  React.useEffect(() => {
+    if (loggedIn) {
+      mainApi.getUserInfo()
+        .then((userInfo) => {
+          setCurrentUser(userInfo.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [loggedIn]);
+  // провеарка токена
+  const tokenCheck = () => {
+    mainApi.getUserInfo()
+      .then((data) => {
+        if (data) {
+          setLoggedIn(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  React.useEffect(() => {
+    tokenCheck();
+  }, []);
   // открываем бургер меню
   const openBurger = () => {
     setBurgerOpen(true);
@@ -72,7 +98,12 @@ function App() {
       <Switch>
         {/* хэдер отобажается  на всех роутах кроме 404 поэтому здесь свич */}
         <Route exact path={headRoutes}>
-          <Header onOpen={openBurger} onClose={closeBurger} burgerOpen={burgerOpen} />
+          <Header
+            loggedIn={loggedIn}
+            onOpen={openBurger}
+            onClose={closeBurger}
+            burgerOpen={burgerOpen}
+          />
         </Route>
         <Route path="*">
           <PageNotFound />
@@ -99,7 +130,7 @@ function App() {
       <Route exact path={footRoutes}>
         <Footer />
       </Route>
-    </CurrentUserContext.Provider value={currentUser}>
+    </CurrentUserContext.Provider>
   );
 }
 

@@ -6,7 +6,7 @@
 .header_theme_dark{
   background-color: #073042;
 }
-.header_type_auth {
+.header_type_logged {
   height: auto;
 }
 .header__container {
@@ -29,7 +29,7 @@
 .header__burger {
   display: none;
   z-index: 0;
-  background-color: #fff;
+  background-color: initial;
   background-repeat: no-repeat;
   background-size: contain;
   border: none;
@@ -51,7 +51,8 @@
   .header__logo-button_type_auth {
     margin: 233px 0px 0;
   }
-  .header__burger {
+
+  .header_type_logged .header__burger {
     display: block;
     height: 44px;
     width: 44px;
