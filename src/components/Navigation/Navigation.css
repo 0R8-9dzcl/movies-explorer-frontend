@@ -56,10 +56,8 @@
   font-weight: 400;
   font-size: 13px;
   line-height: 12px;
-}
-.header_theme_dark .nav__link_type_profile{
   color: #000;
-  background-color: #b1d0d5;
+  background-color: #ffffffa3;
 }
 .nav__link_type_active {
   font-weight: 500;
