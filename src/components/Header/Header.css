@@ -43,6 +43,9 @@
 }
 
 @media screen and (max-width: 768px) {
+  .header_theme_dark {
+    color: #000;
+  }
   .header__logo-button {
     margin: 18px 30px;
   }
