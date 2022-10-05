@@ -15,6 +15,7 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 import Footer from '../Footer/Footer';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import mainApi from '../../utils/MainApi';
+import ProtectedRoute from '../../CustomHoocks/ProtectedRoute';
 
 function App() {
   const { pathname, key, hash } = useLocation();
@@ -35,7 +36,7 @@ function App() {
         })
         .catch((err) => console.log(err));
     }
-  }, [loggedIn]);
+  }, [history, loggedIn]);
   // провеарка токена
   const tokenCheck = () => {
     mainApi.getUser()
@@ -144,45 +145,56 @@ function App() {
   };
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <Switch>
-        {/* хэдер отобажается  на всех роутах кроме 404 поэтому здесь свич */}
-        <Route exact path={headRoutes}>
-          <Header
-            loggedIn={loggedIn}
-            onOpen={openBurger}
-            onClose={closeBurger}
-            burgerOpen={burgerOpen}
-            pathname={pathname}
-          />
-        </Route>
-        <Route path="*">
-          <PageNotFound />
-        </Route>
-      </Switch>
+      <Route exact path={headRoutes}>
+        <Header
+          loggedIn={loggedIn}
+          onOpen={openBurger}
+          onClose={closeBurger}
+          burgerOpen={burgerOpen}
+          pathname={pathname}
+        />
+      </Route>
       <Route exact path="/">
         <Main />
       </Route>
-      <Route path="/movies">
-        <Movies movies={moviesData} pathname={pathname} />
-      </Route>
-      <Route path="/saved-movies">
-        <SavedMovies movies={moviesData} pathname={pathname} />
-      </Route>
-      <Route path="/profile">
-        <Profile
+      <Switch>
+        <Route path="/signin">
+          <Login pathname={pathname} onSubmit={handleLogin} />
+        </Route>
+        <Route path="/signup">
+          <Register pathname={pathname} onSubmit={handleRegister} />
+        </Route>
+        <ProtectedRoute
+          path="/movies"
+          component={Movies}
+          loggedIn={loggedIn}
+          movies={moviesData}
+          pathname={pathname}
+        />
+        <ProtectedRoute
+          path="/saved-movies"
+          component={SavedMovies}
+          loggedIn={loggedIn}
+          movies={moviesData}
+          pathname={pathname}
+        />
+        <ProtectedRoute
+          path="/profile"
+          component={Profile}
+          loggedIn={loggedIn}
           editUser={editUser}
           saveUser={saveUser}
           profileEdit={profileEdit}
           pathname={pathname}
           onLogout={handleLogout}
         />
-      </Route>
-      <Route path="/signin">
-        <Login pathname={pathname} onSubmit={handleLogin} />
-      </Route>
-      <Route path="/signup">
-        <Register pathname={pathname} onSubmit={handleRegister} />
-      </Route>
+        <ProtectedRoute
+          exact
+          path="/*"
+          component={PageNotFound}
+          loggedIn={loggedIn}
+        />
+      </Switch>
       <Route exact path={footRoutes}>
         <Footer />
       </Route>
