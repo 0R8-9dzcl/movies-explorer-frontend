@@ -16,6 +16,7 @@ import Footer from '../Footer/Footer';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import mainApi from '../../utils/MainApi';
 import ProtectedRoute from '../../CustomHoocks/ProtectedRoute';
+import Preloader from '../Preloader/Preloader';
 
 function App() {
   const { pathname, key, hash } = useLocation();
@@ -24,7 +25,7 @@ function App() {
   const [profileEdit, setProfileEdit] = React.useState(false); // стейт редактирования профиля
   // currenUser
   const [currentUser, setCurrentUser] = React.useState({ _id: '', email: '', name: '' });
-  const [loggedIn, setLoggedIn] = React.useState(false);// стейт логина
+  const [loggedIn, setLoggedIn] = React.useState(undefined);// стейт логина
   // роуты где отбражется хэдер
   const headRoutes = ['/movies', '/saved-movies', '/profile', '/', '/signup', '/signin'];
   const footRoutes = ['/movies', '/saved-movies', '/']; // роуты где отбражется футер
@@ -143,6 +144,10 @@ function App() {
         console.log(err);
       });
   };
+
+  if (loggedIn === undefined) {
+    return <Preloader />;
+  }
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Route exact path={headRoutes}>
