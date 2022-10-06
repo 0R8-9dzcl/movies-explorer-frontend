@@ -36,7 +36,6 @@ function App() {
       Promise.all([mainApi.getUser(), getMovies()])
         .then(([userInfo, moviesArray]) => {
           setCurrentUser(userInfo.data);
-          console.log(moviesArray);
           setMoviesData(moviesArray);
         })
         .catch((err) => console.log(err));
@@ -148,6 +147,9 @@ function App() {
         console.log(err);
       });
   };
+  const goBack = () => {
+    history.goBack();
+  };
 
   if (loggedIn === undefined) {
     return <Preloader />;
@@ -202,6 +204,7 @@ function App() {
           path="/*"
           component={PageNotFound}
           loggedIn={loggedIn}
+          onGoBack={goBack}
         />
       </Switch>
       <Route exact path={footRoutes}>

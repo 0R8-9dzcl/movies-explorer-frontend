@@ -1,6 +1,6 @@
 import './PageNotFound.css';
 
-function PageNotFound() {
+function PageNotFound({ onGoBack }) {
   return (
     <main>
       <section className="losted">
@@ -8,7 +8,7 @@ function PageNotFound() {
           <h2 className="losted__title">404</h2>
           <p className="losted__text">Страница не найдена</p>
         </div>
-        <button type="button" className="button losted__back">Назад</button>
+        <button type="button" className="button losted__back" onClick={onGoBack}>Назад</button>
       </section>
     </main>
   );
