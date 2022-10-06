@@ -1,6 +1,6 @@
 const MOVIES_URL = 'https://api.nomoreparties.co/';
 
-function getAuthorization() {
+function getMovies() {
   return fetch(MOVIES_URL, { method: 'GET' }).then((res) => {
     if (res.ok) {
       return res.json();
@@ -8,4 +8,4 @@ function getAuthorization() {
     return Promise.reject(res.status);
   });
 }
-export default getAuthorization;
+export default getMovies;
