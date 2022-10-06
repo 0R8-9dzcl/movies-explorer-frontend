@@ -165,10 +165,10 @@ function App() {
           pathname={pathname}
         />
       </Route>
-      <Route exact path="/">
-        <Main />
-      </Route>
       <Switch>
+        <Route exact path="/">
+          <Main />
+        </Route>
         <Route path="/signin">
           <Login pathname={pathname} onSubmit={handleLogin} />
         </Route>
