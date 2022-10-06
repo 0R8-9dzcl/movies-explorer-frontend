@@ -16,6 +16,7 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 import mainApi from '../../utils/MainApi';
 import ProtectedRoute from '../../CustomHoocks/ProtectedRoute';
 import Preloader from '../Preloader/Preloader';
+import getMovies from '../../utils/MoviesApi';
 
 function App() {
   const { pathname, key, hash } = useLocation();
@@ -25,18 +26,22 @@ function App() {
   // currenUser
   const [currentUser, setCurrentUser] = React.useState({ _id: '', email: '', name: '' });
   const [loggedIn, setLoggedIn] = React.useState(undefined);// стейт логина
+  // стейты фильмов
+  const [moviesData, setMoviesData] = React.useState([]);
   // роуты где отбражется хэдер
   const headRoutes = ['/movies', '/saved-movies', '/profile', '/', '/signup', '/signin'];
   const footRoutes = ['/movies', '/saved-movies', '/']; // роуты где отбражется футер
   React.useEffect(() => {
     if (loggedIn) {
-      mainApi.getUser()
-        .then((userInfo) => {
+      Promise.all([mainApi.getUser(), getMovies()])
+        .then(([userInfo, moviesArray]) => {
           setCurrentUser(userInfo.data);
+          console.log(moviesArray);
+          setMoviesData(moviesArray);
         })
         .catch((err) => console.log(err));
     }
-  }, [history, loggedIn]);
+  }, [loggedIn]);
   // провеарка токена
   const tokenCheck = () => {
     mainApi.getUser()

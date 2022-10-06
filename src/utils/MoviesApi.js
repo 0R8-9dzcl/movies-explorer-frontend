@@ -1,4 +1,4 @@
-const MOVIES_URL = 'https://api.nomoreparties.co/';
+const MOVIES_URL = 'https://api.nomoreparties.co/beatfilm-movies';
 
 function getMovies() {
   return fetch(MOVIES_URL, { method: 'GET' }).then((res) => {
