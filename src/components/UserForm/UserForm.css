@@ -37,23 +37,19 @@
   position: relative;
   transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
 }
-.profile__label:focus-within {
-  box-shadow: 0px 3px 6px rgb(0 0 0 / 9%);
-  scale: 1.01;
-}
 .profile__label_type_auth {
   display: block;
   margin-bottom: 21px;
   height: 47px;
 }
 .profile__label:last-of-type {
-  border: none;
+  border-bottom: none;
+}
+.profile__label:focus-within {
+  border-bottom: 1px #3456F3 solid;
 }
 .profile__label_type_auth:last-of-type {
   border-bottom: 1px #E8E8E8 solid;
-}
-.profile__label_type_auth:focus-within {
-  border-bottom-color: #3456F3;
 }
 .profile__span {
   font-weight: 500;
