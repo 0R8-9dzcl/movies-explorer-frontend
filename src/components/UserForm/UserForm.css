@@ -43,7 +43,7 @@
   height: 47px;
 }
 .profile__label:last-of-type {
-  border-bottom: none;
+  border-bottom-color: #fff0;
 }
 .profile__label:focus-within {
   border-bottom: 1px #3456F3 solid;
