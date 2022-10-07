@@ -27,6 +27,9 @@
   font-size: 12px;
   line-height: 16px;
 }
+.nav__link_type_land {
+  color: #fff;
+}
 .nav__link_type_login {
   color: #000;
   background-color: #2BE080;
