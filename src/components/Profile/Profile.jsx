@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import UserForm from '../UserForm/UserForm';
 
@@ -8,6 +8,11 @@ function Profile({
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  // use value from context
+  useEffect(() => {
+    setName(currentUser.name);
+    setEmail(currentUser.email);
+  }, [currentUser]);
 
   const handleUpdateName = (e) => {
     setName(e.target.value);
@@ -33,7 +38,7 @@ function Profile({
           formName="profile"
           onSubmit={updateHandler}
           boolean={profileEdit}
-          title={`Привет, ${currentUser.name}`}
+          title={`Привет, ${currentUser.name}!`}
           submitText="Сохранить"
           pathname={pathname}
 
@@ -47,7 +52,7 @@ function Profile({
               type="text"
               minLength="2"
               maxLength="40"
-              value={currentUser.name}
+              value={name}
               onChange={handleUpdateName}
               required
             />
@@ -59,7 +64,7 @@ function Profile({
               placeholder="E-mail"
               className={`profile__input${profileEdit ? ' profile__input_type_active' : ''}`}
               type="email"
-              value={currentUser.email}
+              value={email}
               onChange={handleUpdateEmail}
               required
             />
