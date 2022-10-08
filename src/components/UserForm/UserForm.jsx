@@ -22,6 +22,7 @@ function UserForm({
         boolean ? ' profile__button-container_type_active' : ''
       }`}
       >
+        <span className="profile__span profile__span_type_submit">При обновлении профиля произошла ошибка.</span>
         <button
           className="button profile__button profile__button_type_submit"
           type="submit"

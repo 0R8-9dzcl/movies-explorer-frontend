@@ -74,9 +74,9 @@
   top: auto;
   left: 0;
   bottom: -18px;
+  color: #FF3055;
 }
 .profile__span_type_error {
-  color: #FF3055;
   visibility: visible;
   opacity: 1;
 }
@@ -130,6 +130,17 @@
   left: 0;
   bottom: 0;
   width: 100%;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
+}
+.profile__span_type_submit {
+  font-weight: 400;
+  position: initial;
+  text-align: center;
+  color: #FF004C;
+  display: block;
+  margin: 20px auto;
   visibility: hidden;
   opacity: 0;
   transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
