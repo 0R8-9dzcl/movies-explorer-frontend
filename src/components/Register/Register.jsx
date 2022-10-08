@@ -64,12 +64,12 @@ function Register({ pathname, onSubmit }) {
             <input
               name="password"
               placeholder="Пароль"
-              className="profile__input profile__input_type_auth profile__input_type_error"
+              className="profile__input profile__input_type_auth"
               type="password"
               onChange={handleUpdatePassword}
               required
             />
-            <span className="profile__span profile__span_type_auth profile__span_type_error profile__span_type_hidden">Что-то пошло не так...</span>
+            <span className="profile__span profile__span_type_auth profile__span_type_hidden">Что-то пошло не так...</span>
           </label>
         </UserForm>
       </section>
