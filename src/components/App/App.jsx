@@ -95,17 +95,6 @@ function App() {
       targetElement?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [key, hash]);
-  // регистрация пользователя
-  const handleRegister = (name, email, password) => {
-    mainApi.register(name, email, password)
-      .then((res) => {
-        history.push('/signin');
-        return res;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
   // логин пользователя
   const handleLogin = (email, password) => {
     mainApi.login(email, password)
@@ -113,6 +102,18 @@ function App() {
         setCurrentUser(user.data);
         setLoggedIn(true);
         history.push('/movies');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  // регистрация пользователя
+  const handleRegister = (name, email, password) => {
+    mainApi.register(name, email, password)
+      .then((res) => {
+        if (res) {
+          handleLogin(email, password);
+        }
       })
       .catch((err) => {
         console.log(err);
