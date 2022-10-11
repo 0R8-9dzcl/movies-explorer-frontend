@@ -1,7 +1,7 @@
 import useInput from '../../CustomHoocks/FormFalidator';
 import UserForm from '../UserForm/UserForm';
 
-function Login({ pathname, onSubmit }) {
+function Login({ pathname, onSubmit, reqError }) {
   const email = useInput('', { isEmpty: false, isEmail: true });
   const password = useInput('', { isEmpty: false });
 
@@ -22,6 +22,7 @@ function Login({ pathname, onSubmit }) {
           linkText="Регистрация"
           onSubmit={loginHandler}
           pathname={pathname}
+          reqError={reqError}
           disabledButton={!email.inputValid || !password.inputValid}
         >
           <label htmlFor="email" className="profile__label profile__label_type_auth">

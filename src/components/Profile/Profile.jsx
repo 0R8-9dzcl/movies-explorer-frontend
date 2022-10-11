@@ -4,7 +4,7 @@ import useInput from '../../CustomHoocks/FormFalidator';
 import UserForm from '../UserForm/UserForm';
 
 function Profile({
-  editUser, saveUser, profileEdit, pathname, onLogout,
+  editUser, saveUser, profileEdit, pathname, onLogout, reqError,
 }) {
   const currentUser = useContext(CurrentUserContext);
   const name = useInput(currentUser.name, {
@@ -40,6 +40,7 @@ function Profile({
           title={`Привет, ${currentUser.name}!`}
           submitText="Сохранить"
           pathname={pathname}
+          reqError={reqError}
           disabledButton={!email.inputValid || !name.inputValid}
         >
           <label htmlFor="name" className="profile__label">

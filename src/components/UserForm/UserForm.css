@@ -143,8 +143,8 @@
   color: #FF004C;
   display: block;
   margin: 20px auto;
-  visibility: hidden;
-  opacity: 0;
+  /* visibility: hidden;
+  opacity: 0; */
   transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
 }
 .profile__button_type_submit {

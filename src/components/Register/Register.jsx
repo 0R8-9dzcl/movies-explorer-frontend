@@ -1,7 +1,7 @@
 import useInput from '../../CustomHoocks/FormFalidator';
 import UserForm from '../UserForm/UserForm';
 
-function Register({ pathname, onSubmit }) {
+function Register({ pathname, onSubmit, reqError }) {
   const name = useInput('', {
     isEmpty: false, minLength: 2, maxLength: 30,
   });
@@ -24,6 +24,7 @@ function Register({ pathname, onSubmit }) {
           linkText="Войти"
           onSubmit={registerHandler}
           pathname={pathname}
+          reqError={reqError}
           disabledButton={!email.inputValid || !name.inputValid || !password.inputValid}
         >
           <label htmlFor="name" className="profile__label profile__label_type_auth">

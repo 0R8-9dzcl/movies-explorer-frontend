@@ -17,6 +17,7 @@ import mainApi from '../../utils/MainApi';
 import ProtectedRoute from '../../CustomHoocks/ProtectedRoute';
 import Preloader from '../Preloader/Preloader';
 import getMovies from '../../utils/MoviesApi';
+import errText from '../../utils/errText';
 
 function App() {
   const { pathname, key, hash } = useLocation();
@@ -26,6 +27,8 @@ function App() {
   // currenUser
   const [currentUser, setCurrentUser] = React.useState({ _id: '', email: '', name: '' });
   const [loggedIn, setLoggedIn] = React.useState(undefined);// стейт логина
+  // стейт ошибки запроса
+  const [reqError, setReqError] = React.useState('');
   // стейты фильмов
   const [moviesData, setMoviesData] = React.useState([]);
   // роуты где отбражется хэдер
@@ -33,24 +36,35 @@ function App() {
   const footRoutes = ['/movies', '/saved-movies', '/']; // роуты где отбражется футер
   React.useEffect(() => {
     if (loggedIn) {
-      Promise.all([mainApi.getUser(), getMovies()])
-        .then(([userInfo, moviesArray]) => {
+      mainApi.getUser()
+        .then((userInfo) => {
           setCurrentUser(userInfo.data);
+        })
+        .catch((err) => console.log(err));
+      getMovies()
+        .then((moviesArray) => {
           setMoviesData(moviesArray);
         })
         .catch((err) => console.log(err));
     }
-  }, [loggedIn]);
+  }, [loggedIn, history]);
   // провеарка токена
   const tokenCheck = () => {
     mainApi.getUser()
       .then((data) => {
         if (data) {
           setLoggedIn(true);
+          setReqError(''); // сброс ошибки на всякий случай
         }
       })
       .catch((err) => {
         setLoggedIn(false);
+        if (err === 401) {
+          setReqError(errText.tokenError);
+        }
+        if (err === 500) {
+          setReqError(errText.serverError);
+        }
         console.log(err);
       });
   };
@@ -100,10 +114,17 @@ function App() {
     mainApi.login(email, password)
       .then((user) => {
         setCurrentUser(user.data);
+        setReqError('');
         setLoggedIn(true);
         history.push('/movies');
       })
       .catch((err) => {
+        if (err === 401) {
+          setReqError(errText.incorrectData);
+        }
+        if (err === 500) {
+          setReqError(errText.serverError);
+        }
         console.log(err);
       });
   };
@@ -116,6 +137,15 @@ function App() {
         }
       })
       .catch((err) => {
+        if (err === 400) {
+          setReqError(errText.registerError);
+        }
+        if (err === 409) {
+          setReqError(errText.conflicrEmail);
+        }
+        if (err === 500) {
+          setReqError(errText.serverError);
+        }
         console.log(err);
       });
   };
@@ -142,10 +172,20 @@ function App() {
       .then((user) => {
         if (user) {
           setCurrentUser(user.data);
+          setReqError('');
           setProfileEdit(false);
         }
       })
       .catch((err) => {
+        if (err === 400) {
+          setReqError(errText.patchUserError);
+        }
+        if (err === 409) {
+          setReqError(errText.conflicrEmail);
+        }
+        if (err === 500) {
+          setReqError(errText.serverError);
+        }
         console.log(err);
       });
   };
@@ -172,10 +212,10 @@ function App() {
           <Main />
         </Route>
         <Route path="/signin">
-          <Login pathname={pathname} onSubmit={handleLogin} />
+          <Login pathname={pathname} onSubmit={handleLogin} reqError={reqError} />
         </Route>
         <Route path="/signup">
-          <Register pathname={pathname} onSubmit={handleRegister} />
+          <Register pathname={pathname} onSubmit={handleRegister} reqError={reqError} />
         </Route>
         <ProtectedRoute
           path="/movies"
@@ -200,6 +240,7 @@ function App() {
           profileEdit={profileEdit}
           pathname={pathname}
           onLogout={handleLogout}
+          reqError={reqError}
         />
         <ProtectedRoute
           exact
