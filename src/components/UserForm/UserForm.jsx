@@ -12,6 +12,7 @@ function UserForm({
   route,
   linkText,
   pathname,
+  disabledButton,
 }) {
   const checkLocation = (pathname === '/profile');
   return (
@@ -27,6 +28,7 @@ function UserForm({
           className="button profile__button profile__button_type_submit"
           type="submit"
           name="submit"
+          disabled={disabledButton}
         >
           {submitText}
         </button>

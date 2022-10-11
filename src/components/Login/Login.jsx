@@ -1,19 +1,13 @@
-import { useState } from 'react';
+import useInput from '../../CustomHoocks/FormFalidator';
 import UserForm from '../UserForm/UserForm';
 
 function Login({ pathname, onSubmit }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const email = useInput('', { isEmpty: false, isEmail: true });
+  const password = useInput('', { isEmpty: false });
 
-  const handleUpdateEmail = (e) => {
-    setEmail(e.target.value);
-  };
-  const handleUpdatePassword = (e) => {
-    setPassword(e.target.value);
-  };
   const loginHandler = (e) => {
     e.preventDefault();
-    onSubmit(email, password);
+    onSubmit(email.value, password.value);
   };
   return (
     <main>
@@ -28,31 +22,50 @@ function Login({ pathname, onSubmit }) {
           linkText="Регистрация"
           onSubmit={loginHandler}
           pathname={pathname}
+          disabledButton={!email.inputValid || !password.inputValid}
         >
           <label htmlFor="email" className="profile__label profile__label_type_auth">
             <span className="profile__span profile__span_type_auth">E-mail</span>
             <input
               name="email"
               placeholder="E-mail"
-              className="profile__input profile__input_type_auth"
+              className={`profile__input profile__input_type_auth${
+                !email.inputValid ? ' profile__input_type_error' : ''
+              }`}
               type="email"
-              onChange={handleUpdateEmail}
+              onBlur={(e) => email.onBlur(e)}
+              onChange={(e) => email.onChange(e)}
               required
+              noValidate
             />
-            <span className="profile__span profile__span_type_auth profile__span_type_hidden">Ошибка</span>
+            <span className={`profile__span profile__span_type_auth profile__span_type_hidden${
+              !email.inputValid && email.isDirty ? ' profile__span_type_error' : ''
+            }`}
+            >
+              {password.errText}
+            </span>
           </label>
           <label htmlFor="email" className="profile__label profile__label_type_auth">
             <span className="profile__span profile__span_type_auth">Пароль</span>
             <input
               name="password"
               placeholder="Пароль"
-              className="profile__input profile__input_type_auth"
+              className={`profile__input profile__input_type_auth${
+                !password.inputValid ? ' profile__input_type_error' : ''
+              }`}
               type="password"
-              onChange={handleUpdatePassword}
+              onBlur={(e) => password.onBlur(e)}
+              onChange={(e) => password.onChange(e)}
               required
+              noValidate
             />
           </label>
-          <span className="profile__span profile__span_type_auth profile__span_type_hidden">Ошибка</span>
+          <span className={`profile__span profile__span_type_auth profile__span_type_hidden${
+            !password.inputValid && password.isDirty ? ' profile__span_type_error' : ''
+          }`}
+          >
+            {password.errText}
+          </span>
         </UserForm>
       </section>
     </main>

@@ -79,6 +79,7 @@
 .profile__span_type_error {
   visibility: visible;
   opacity: 1;
+  z-index: 1;
 }
 .profile__input {
   font-weight: 400;
@@ -120,6 +121,7 @@
   line-height: 16px;
   border: none;
   background-color: inherit;
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
 }
 .profile__button_type_logout {
   margin-top: 13px;
@@ -156,6 +158,10 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
+}
+.profile__button_type_submit:disabled {
+  background-color: #f8f8f8;
+  color: #c2c2c2;
 }
 .profile__button-container_type_active {
   visibility: visible;

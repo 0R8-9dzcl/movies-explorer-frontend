@@ -1,32 +1,31 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
+import useInput from '../../CustomHoocks/FormFalidator';
 import UserForm from '../UserForm/UserForm';
 
 function Profile({
   editUser, saveUser, profileEdit, pathname, onLogout,
 }) {
   const currentUser = useContext(CurrentUserContext);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  // use value from context
+  const name = useInput(currentUser.name, {
+    isEmpty: false, minLength: 2, maxLength: 30,
+  });
+  const email = useInput(currentUser.email, { isEmpty: false, isEmail: true });
+  // установим зеначения из конекста при изменении данных пользователя
   useEffect(() => {
-    setName(currentUser.name);
-    setEmail(currentUser.email);
+    name.setValue(currentUser.name);
+    email.setValue(currentUser.email);
   }, [currentUser]);
 
-  const handleUpdateName = (e) => {
-    setName(e.target.value);
-  };
-  const handleUpdateEmail = (e) => {
-    setEmail(e.target.value);
-  };
   const onEdit = () => {
     editUser();
   };
+  // контроллер сабмита формы
   const updateHandler = (e) => {
     e.preventDefault();
-    saveUser(name, email);
+    saveUser(name.value, email.value);
   };
+  //  контроллер логаута
   const handleLogout = (e) => {
     e.preventDefault();
     onLogout();
@@ -41,33 +40,53 @@ function Profile({
           title={`Привет, ${currentUser.name}!`}
           submitText="Сохранить"
           pathname={pathname}
-
+          disabledButton={!email.inputValid || !name.inputValid}
         >
           <label htmlFor="name" className="profile__label">
             <span className="profile__span">Имя</span>
             <input
               name="name"
               placeholder="Имя"
-              className={`profile__input${profileEdit ? ' profile__input_type_active' : ''}`}
+              className={`profile__input${
+                profileEdit ? ' profile__input_type_active' : ''}${
+                !name.inputValid ? ' profile__input_type_error' : ''
+              }`}
               type="text"
-              minLength="2"
-              maxLength="40"
-              value={name}
-              onChange={handleUpdateName}
-              required
+              maxLength={40}
+              minLength={2}
+              value={name.value}
+              onBlur={(e) => name.onBlur(e)}
+              onChange={(e) => name.onChange(e)}
+              noValidate
             />
+            <span className={`profile__span profile__span_type_auth profile__span_type_hidden${
+              !name.inputValid && name.isDirty ? ' profile__span_type_error' : ''
+            }`}
+            >
+              {name.errText}
+            </span>
           </label>
           <label htmlFor="email" className="profile__label">
             <span className="profile__span">E-mail</span>
             <input
               name="email"
               placeholder="E-mail"
-              className={`profile__input${profileEdit ? ' profile__input_type_active' : ''}`}
+              className={`profile__input${profileEdit ? ' profile__input_type_active' : ''}${
+                !email.inputValid ? ' profile__input_type_error' : ''
+              }`}
+              value={email.value}
               type="email"
-              value={email}
-              onChange={handleUpdateEmail}
-              required
+              onBlur={(e) => email.onBlur(e)}
+              onChange={(e) => email.onChange(e)}
+              noValidate
             />
+            <span className={`profile__span profile__span_type_auth profile__span_type_hidden${
+              !email.inputValid && email.isDirty ? ' profile__span_type_error' : ''
+            }`}
+            >
+              {email.errText}
+
+            </span>
           </label>
           <ul className="profile__buttons">
             <li>
