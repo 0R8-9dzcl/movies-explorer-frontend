@@ -41,7 +41,10 @@ function Profile({
           submitText="Сохранить"
           pathname={pathname}
           reqError={reqError}
-          disabledButton={!email.inputValid || !name.inputValid}
+          disabledButton={
+            (!email.inputValid || !name.inputValid)
+            || (name.value === currentUser.name && email.value === currentUser.email)
+          }
         >
           <label htmlFor="name" className="profile__label">
             <span className="profile__span">Имя</span>
