@@ -41,11 +41,6 @@ function App() {
           setCurrentUser(userInfo.data);
         })
         .catch((err) => console.log(err));
-      getMovies()
-        .then((moviesArray) => {
-          setMoviesData(moviesArray);
-        })
-        .catch((err) => console.log(err));
     }
   }, [loggedIn, history]);
   // провеарка токена
@@ -54,17 +49,10 @@ function App() {
       .then((data) => {
         if (data) {
           setLoggedIn(true);
-          setReqError(''); // сброс ошибки на всякий случай
         }
       })
       .catch((err) => {
         setLoggedIn(false);
-        if (err === 401) {
-          setReqError(errText.tokenError);
-        }
-        if (err === 500) {
-          setReqError(errText.serverError);
-        }
         console.log(err);
       });
   };
@@ -109,6 +97,10 @@ function App() {
       targetElement?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [key, hash]);
+  // очистить ошибку сабмита при переходе
+  React.useEffect(() => {
+    setReqError('');
+  }, [pathname]);
   // логин пользователя
   const handleLogin = (email, password) => {
     mainApi.login(email, password)
@@ -193,6 +185,14 @@ function App() {
     history.goBack();
   };
 
+  // Фильмецы
+  const getAllMovies = () => {
+    getMovies()
+      .then((moviesArray) => {
+        setMoviesData(moviesArray);
+      })
+      .catch((err) => console.log(err));
+  };
   if (loggedIn === undefined) {
     return <Preloader />;
   }
@@ -220,6 +220,7 @@ function App() {
         <ProtectedRoute
           path="/movies"
           component={Movies}
+          getAllMovies={getAllMovies}
           loggedIn={loggedIn}
           movies={moviesData}
           pathname={pathname}
