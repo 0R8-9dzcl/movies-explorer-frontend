@@ -23,7 +23,6 @@ const useValidation = (value, validations) => {
           case 'minLength':
             if (value.length < validations[validation]) {
               setMinLength(true);
-              console.log('короткий');
             } else {
               setMinLength(false);
             }
