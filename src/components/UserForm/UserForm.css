@@ -59,6 +59,7 @@
   position: absolute;
   top: 17px;
   left: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
 }
 .profile__span_type_auth {
   font-weight: 400;
@@ -70,7 +71,6 @@
 .profile__span_type_hidden {
   visibility: hidden;
   opacity: 0;
-  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
   top: auto;
   left: 0;
   bottom: -18px;
@@ -113,7 +113,11 @@
   margin: 0;
   position: absolute;
   bottom: 0;
-  width: 100% ;
+  width: 100%;
+  z-index: 1;
+}
+.profile__buttons_type_active {
+  z-index: 0;
 }
 .profile__button {
   font-weight: 400;
@@ -122,6 +126,8 @@
   border: none;
   background-color: inherit;
   transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
+  visibility: hidden;
+  opacity: 0;
 }
 .profile__button_type_logout {
   margin-top: 13px;
@@ -132,20 +138,25 @@
   left: 0;
   bottom: 0;
   width: 100%;
-  visibility: hidden;
-  opacity: 0;
-  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
 }
 .profile__span_type_submit {
   font-weight: 400;
+  color: #3456F3;
   position: initial;
   text-align: center;
-  color: #FF004C;
   display: block;
   margin: 20px auto;
   /* visibility: hidden;
   opacity: 0; */
-  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
+}
+.profile__span_type_err-submit {
+  color: #FF004C;
+  /* visibility: hidden;
+  opacity: 0; */
+}
+.profile__button_type_active {
+  visibility: visible;
+  opacity: 1;
 }
 .profile__button_type_submit {
   text-align: center;

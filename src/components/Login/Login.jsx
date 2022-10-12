@@ -1,7 +1,7 @@
 import useInput from '../../CustomHoocks/FormFalidator';
 import UserForm from '../UserForm/UserForm';
 
-function Login({ pathname, onSubmit, reqError }) {
+function Login({ pathname, onSubmit, reqMess }) {
   const email = useInput('', { isEmpty: false, isEmail: true });
   const password = useInput('', { isEmpty: false });
 
@@ -22,7 +22,7 @@ function Login({ pathname, onSubmit, reqError }) {
           linkText="Регистрация"
           onSubmit={loginHandler}
           pathname={pathname}
-          reqError={reqError}
+          reqMess={reqMess}
           disabledButton={!email.inputValid || !password.inputValid}
         >
           <label htmlFor="email" className="profile__label profile__label_type_auth">
@@ -34,7 +34,7 @@ function Login({ pathname, onSubmit, reqError }) {
                 !email.inputValid ? ' profile__input_type_error' : ''
               }`}
               type="email"
-              onBlur={(e) => email.onBlur(e)}
+              onFocus={(e) => email.onFocus(e)}
               onChange={(e) => email.onChange(e)}
               required
               noValidate
@@ -55,7 +55,7 @@ function Login({ pathname, onSubmit, reqError }) {
                 !password.inputValid ? ' profile__input_type_error' : ''
               }`}
               type="password"
-              onBlur={(e) => password.onBlur(e)}
+              onFocus={(e) => password.onFocus(e)}
               onChange={(e) => password.onChange(e)}
               required
               noValidate

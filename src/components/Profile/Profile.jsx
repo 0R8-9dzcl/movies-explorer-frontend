@@ -4,7 +4,7 @@ import useInput from '../../CustomHoocks/FormFalidator';
 import UserForm from '../UserForm/UserForm';
 
 function Profile({
-  editUser, saveUser, profileEdit, pathname, onLogout, reqError,
+  editUser, saveUser, profileEdit, pathname, onLogout, reqMess,
 }) {
   const currentUser = useContext(CurrentUserContext);
   const name = useInput(currentUser.name, {
@@ -40,7 +40,7 @@ function Profile({
           title={`Привет, ${currentUser.name}!`}
           submitText="Сохранить"
           pathname={pathname}
-          reqError={reqError}
+          reqMess={reqMess}
           disabledButton={
             (!email.inputValid || !name.inputValid)
             || (name.value === currentUser.name && email.value === currentUser.email)
@@ -59,7 +59,7 @@ function Profile({
               maxLength={40}
               minLength={2}
               value={name.value}
-              onBlur={(e) => name.onBlur(e)}
+              onFocus={(e) => name.onFocus(e)}
               onChange={(e) => name.onChange(e)}
               noValidate
             />
@@ -80,7 +80,7 @@ function Profile({
               }`}
               value={email.value}
               type="email"
-              onBlur={(e) => email.onBlur(e)}
+              onFocus={(e) => email.onFocus(e)}
               onChange={(e) => email.onChange(e)}
               noValidate
             />
@@ -92,10 +92,13 @@ function Profile({
 
             </span>
           </label>
-          <ul className="profile__buttons">
+          <ul className={`profile__buttons${
+            profileEdit ? ' profile__buttons_type_active' : ''
+          }`}
+          >
             <li>
               <button
-                className={`button profile__button profile__button_type_edit ${
+                className={`button profile__button profile__button_type_edit${
                   !profileEdit ? ' profile__button_type_active' : ''
                 }`}
                 type="button"
@@ -106,7 +109,7 @@ function Profile({
             </li>
             <li>
               <button
-                className={`button profile__button profile__button_type_logout ${
+                className={`button profile__button profile__button_type_logout${
                   !profileEdit ? ' profile__button_type_active' : ''
                 }`}
                 type="button"

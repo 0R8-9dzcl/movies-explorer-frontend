@@ -1,7 +1,7 @@
 import useInput from '../../CustomHoocks/FormFalidator';
 import UserForm from '../UserForm/UserForm';
 
-function Register({ pathname, onSubmit, reqError }) {
+function Register({ pathname, onSubmit, reqMess }) {
   const name = useInput('', {
     isEmpty: false, minLength: 2, maxLength: 30,
   });
@@ -24,7 +24,7 @@ function Register({ pathname, onSubmit, reqError }) {
           linkText="Войти"
           onSubmit={registerHandler}
           pathname={pathname}
-          reqError={reqError}
+          reqMess={reqMess}
           disabledButton={!email.inputValid || !name.inputValid || !password.inputValid}
         >
           <label htmlFor="name" className="profile__label profile__label_type_auth">
@@ -38,7 +38,7 @@ function Register({ pathname, onSubmit, reqError }) {
               type="text"
               minLength="2"
               maxLength="40"
-              onBlur={(e) => name.onBlur(e)}
+              onFocus={(e) => name.onFocus(e)}
               onChange={(e) => name.onChange(e)}
               required
               noValidate
@@ -59,7 +59,7 @@ function Register({ pathname, onSubmit, reqError }) {
                 !email.inputValid ? ' profile__input_type_error' : ''
               }`}
               type="email"
-              onBlur={(e) => email.onBlur(e)}
+              onFocus={(e) => email.onFocus(e)}
               onChange={(e) => email.onChange(e)}
               required
               noValidate
@@ -80,7 +80,7 @@ function Register({ pathname, onSubmit, reqError }) {
                 !password.inputValid ? ' profile__input_type_error' : ''
               }`}
               type="password"
-              onBlur={(e) => password.onBlur(e)}
+              onFocus={(e) => password.onFocus(e)}
               onChange={(e) => password.onChange(e)}
               required
               noValidate

@@ -28,7 +28,7 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({ _id: '', email: '', name: '' });
   const [loggedIn, setLoggedIn] = React.useState(undefined);// стейт логина
   // стейт ошибки запроса
-  const [reqError, setReqError] = React.useState('');
+  const [reqMess, setReqMess] = React.useState({ err: false, mess: '' });
   // стейты фильмов
   const [moviesData, setMoviesData] = React.useState([]);
   // роуты где отбражется хэдер
@@ -99,23 +99,23 @@ function App() {
   }, [key, hash]);
   // очистить ошибку сабмита при переходе
   React.useEffect(() => {
-    setReqError('');
+    setReqMess({ err: false, mess: '' });
   }, [pathname]);
   // логин пользователя
   const handleLogin = (email, password) => {
     mainApi.login(email, password)
       .then((user) => {
         setCurrentUser(user.data);
-        setReqError('');
+        setReqMess({ err: false, mess: '' });
         setLoggedIn(true);
         history.push('/movies');
       })
       .catch((err) => {
         if (err === 401) {
-          setReqError(errText.incorrectData);
+          setReqMess({ err: true, mess: errText.incorrectData });
         }
         if (err === 500) {
-          setReqError(errText.serverError);
+          setReqMess({ err: true, mess: errText.serverError });
         }
         console.log(err);
       });
@@ -130,13 +130,13 @@ function App() {
       })
       .catch((err) => {
         if (err === 400) {
-          setReqError(errText.registerError);
+          setReqMess({ err: true, mess: errText.registerError });
         }
         if (err === 409) {
-          setReqError(errText.conflicrEmail);
+          setReqMess({ err: true, mess: errText.conflicrEmail });
         }
         if (err === 500) {
-          setReqError(errText.serverError);
+          setReqMess({ err: true, mess: errText.serverError });
         }
         console.log(err);
       });
@@ -164,19 +164,19 @@ function App() {
       .then((user) => {
         if (user) {
           setCurrentUser(user.data);
-          setReqError('');
+          setReqMess({ err: false, mess: 'Сохранено успешно' });
           setProfileEdit(false);
         }
       })
       .catch((err) => {
         if (err === 400) {
-          setReqError(errText.patchUserError);
+          setReqMess({ err: true, mess: errText.patchUserError });
         }
         if (err === 409) {
-          setReqError(errText.conflicrEmail);
+          setReqMess({ err: true, mess: errText.conflicrEmail });
         }
         if (err === 500) {
-          setReqError(errText.serverError);
+          setReqMess({ err: true, mess: errText.serverError });
         }
         console.log(err);
       });
@@ -212,10 +212,10 @@ function App() {
           <Main />
         </Route>
         <Route path="/signin">
-          <Login pathname={pathname} onSubmit={handleLogin} reqError={reqError} />
+          <Login pathname={pathname} onSubmit={handleLogin} reqMess={reqMess} />
         </Route>
         <Route path="/signup">
-          <Register pathname={pathname} onSubmit={handleRegister} reqError={reqError} />
+          <Register pathname={pathname} onSubmit={handleRegister} reqMess={reqMess} />
         </Route>
         <ProtectedRoute
           path="/movies"
@@ -241,7 +241,7 @@ function App() {
           profileEdit={profileEdit}
           pathname={pathname}
           onLogout={handleLogout}
-          reqError={reqError}
+          reqMess={reqMess}
         />
         <ProtectedRoute
           exact
