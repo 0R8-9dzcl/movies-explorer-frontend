@@ -8,6 +8,8 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  padding: 0px 0 17px;
+  border-bottom: 1px #aaa solid;
 }
 .search__button {
   position: absolute;
@@ -48,8 +50,9 @@
   line-height: 18px;
   display: flex;
   align-items: center;
-  padding: 0px 0 17px;
-  border-bottom: 1px #aaa solid;
+  max-width: fit-content;
+  /* padding: 0px 0 17px;
+  border-bottom: 1px #aaa solid; */
 }
 .search__short-checkbox {
   width: 36px;
