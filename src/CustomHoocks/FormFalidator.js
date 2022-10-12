@@ -20,6 +20,7 @@ const useValidation = (value, validations) => {
     for (const validation in validations) {
       if (Object.hasOwnProperty.call(validations, validation)) {
         switch (validation) {
+          // проверяем длину значения инпута в зависимости
           case 'minLength':
             if (value.length < validations[validation]) {
               setMinLength(true);
@@ -27,6 +28,7 @@ const useValidation = (value, validations) => {
               setMinLength(false);
             }
             break;
+            // проверяем длину значения инпута в зависимости
           case 'maxLength':
             if (value.length > validations[validation]) {
               setMaxLength(true);
@@ -81,10 +83,13 @@ const useValidation = (value, validations) => {
 const useInput = (initialValue, validations) => {
   const [value, setValue] = useState(initialValue);
   const [isDirty, setIsDirty] = useState(false);
+  // валидируем кастомныс хуком поля
   const valid = useValidation(value, validations);
+  // управляем знчение инпута
   const onChange = (e) => {
     setValue(e.target.value);
   };
+  // при фокусе на инпуте начинать отбражать ошибке
   const onFocus = () => {
     setIsDirty(true);
   };
