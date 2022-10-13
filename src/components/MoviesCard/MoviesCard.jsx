@@ -1,7 +1,9 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import './MoviesCard.css';
 
 function MoviesCard({
-  imgUrl, title, duration, pathname,
+  movie, imgUrl, title, duration, pathname,
 }) {
   // рандомный активатор лайков
   const isLiked = () => {
@@ -15,9 +17,12 @@ function MoviesCard({
     const minutes = duration % 60;
     return `${hour}ч${minutes}м`;
   };
+  const kickToTrailer = () => {
+    window.open(movie.trailerLink, '_blank').focus();
+  };
   return (
     <li className="movie">
-      <img src={imgUrl} alt={title} className="movie__img" />
+      <img src={imgUrl} alt={title} onClick={kickToTrailer} className="movie__img" />
       <div className="movie__container">
         <h2 className="movie__title">{title}</h2>
         <p className="movie__duration">{transDuration()}</p>
