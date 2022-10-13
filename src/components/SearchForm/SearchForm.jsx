@@ -1,10 +1,11 @@
 import './SearchForm.css';
 
 function SearchForm({
-  onSearch, allMovies, onCheckBox, shortCheckbox, onSort, sortInput, setSearchedMovies,
+  onSearch, allMovies, onCheckBox, shortCheckbox, onSort, sortInput, sortMovie,
 }) {
   const handleCheckbox = (e) => {
     onCheckBox(e);
+    sortMovie();
   };
   const handleSortInput = (e) => {
     onSort(e);
@@ -14,18 +15,7 @@ function SearchForm({
     if (allMovies.isEmpty) {
       onSearch();
     }
-    const sortedMovie = allMovies.movies
-      .filter((m) => (shortCheckbox ? m.duration <= 30
-        && (m.nameRU.toLowerCase().includes(sortInput.toLowerCase())
-      || m.nameEN.toLowerCase().includes(sortInput.toLowerCase()))
-        : m.nameRU.toLowerCase().includes(sortInput.toLowerCase())
-      || m.nameEN.toLowerCase().includes(sortInput.toLowerCase())));
-    console.log(sortedMovie);
-    if (sortedMovie.length > 0) {
-      setSearchedMovies({ isEmpty: false, movies: sortedMovie });
-    } else {
-      setSearchedMovies({ isEmpty: true, movies: sortedMovie, text: `Фильмы по запросу ${sortInput} не найдены` });
-    }
+    sortMovie(allMovies);
   };
   return (
     <section className="search" onSubmit={handleSearch}>

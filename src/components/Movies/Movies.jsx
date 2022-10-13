@@ -3,19 +3,19 @@ import Preloader from '../Preloader/Preloader';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 function Movies({
-  movies, allMovies, pathname, onSearch, setSearchedMovies,
+  movies, allMovies, pathname, onSearch, sortMovie,
   onCheckBox, shortCheckbox, onSort, sortInput, preloader,
 }) {
   return (
     <main>
       <SearchForm
-        allMovies={allMovies}
         onSearch={onSearch}
+        allMovies={allMovies}
         onCheckBox={onCheckBox}
         shortCheckbox={shortCheckbox}
         onSort={onSort}
         sortInput={sortInput}
-        setSearchedMovies={setSearchedMovies}
+        sortMovie={sortMovie}
       />
       {preloader ? <Preloader /> : <MoviesCardList movies={movies} pathname={pathname} />}
     </main>

@@ -50,7 +50,7 @@ function App() {
         .catch((err) => console.log(err));
     }
   }, [loggedIn, history]);
-  // провеарка токена
+  // проверка токена
   const tokenCheck = () => {
     mainApi.getUser()
       .then((data) => {
@@ -196,40 +196,58 @@ function App() {
   // Фильмецы
   // получаем все фильмы из сервиса
   const getAllMovies = () => {
-    setPreloader(true); // отображаем прелоадер при запросе
+    getMovies()
+      .then((moviesArray) => {
+        console.log(allMovies);
+        const newMoviesArray = moviesArray.map((movie) => ({
+          country: movie.country,
+          director: movie.director,
+          duration: movie.duration,
+          year: movie.year,
+          description: movie.description,
+          image: MOVIES_URL + movie.image.url,
+          trailerLink: isURL(movie.trailerLink) ? movie.trailerLink
+            : `https://www.youtube.com/results?search_query=${movie.nameEN.replace(/ /g, '+')}+trailer`,
+          thumbnail: MOVIES_URL + movie.image.formats.thumbnail.url,
+          movieId: movie.id,
+          nameRU: movie.nameRU,
+          nameEN: movie.nameEN,
+        }));
+        console.log(newMoviesArray);
+        localStorage.setItem('allMovies', JSON.stringify(newMoviesArray));
+        setAllMovies({ isEmpty: false, movies: newMoviesArray });
+      })
+      .catch((err) => {
+        console.log(err);
+        setAllMovies({ isEmpty: false, movies: [], text: '' });
+      })
+      .finally(() => {
+        setPreloader(false);
+      });
+  };
+  // сохряняю все фильмы в стейт
+  const saveAllMovies = () => {
     const localAllMovies = localStorage.getItem('allMovies');
     if (!localAllMovies) {
-      getMovies()
-        .then((moviesArray) => {
-          console.log(allMovies);
-          const newMoviesArray = moviesArray.map((movie) => ({
-            country: movie.country,
-            director: movie.director,
-            duration: movie.duration,
-            year: movie.year,
-            description: movie.description,
-            image: MOVIES_URL + movie.image.url,
-            trailerLink: isURL(movie.trailerLink) ? movie.trailerLink
-              : `https://www.youtube.com/results?search_query=${movie.nameEN.replace(/ /g, '+')}+trailer`,
-            thumbnail: MOVIES_URL + movie.image.formats.thumbnail.url,
-            movieId: movie.id,
-            nameRU: movie.nameRU,
-            nameEN: movie.nameEN,
-          }));
-          console.log(newMoviesArray);
-          setAllMovies({ isEmpty: false, movies: newMoviesArray });
-          localStorage.setItem('allMovies', JSON.stringify(newMoviesArray));
-        })
-        .catch((err) => {
-          console.log(err);
-          setAllMovies({ isEmpty: false, movies: [], text: '' });
-        })
-        .finally(() => {
-          setPreloader(false);
-        });
+      getAllMovies();
     } else {
       setAllMovies({ isEmpty: false, movies: JSON.parse(localAllMovies) });
       setPreloader(false);
+    }
+  };
+  // сортировка
+  const sortMovie = () => {
+    const sortedMovie = allMovies.movies
+      .filter((m) => (shortCheckbox ? m.duration <= 30
+        && (m.nameRU.toLowerCase().includes(sortInput.toLowerCase())
+      || m.nameEN.toLowerCase().includes(sortInput.toLowerCase()))
+        : m.nameRU.toLowerCase().includes(sortInput.toLowerCase())
+      || m.nameEN.toLowerCase().includes(sortInput.toLowerCase())));
+    console.log(sortedMovie);
+    if (sortedMovie.length > 0) {
+      setSearchedMovies({ isEmpty: false, movies: sortedMovie });
+    } else {
+      setSearchedMovies({ isEmpty: true, movies: sortedMovie, text: `Фильмы по запросу ${sortInput} не найдены` });
     }
   };
   // меняем статус чекбокса
@@ -244,6 +262,11 @@ function App() {
   const handleSortInput = (e) => {
     setSortInput(e.target.value);
   };
+  React.useEffect(() => {
+    if (!allMovies.isEmpty) {
+      sortMovie();
+    }
+  }, [allMovies]);
   // не отрисовываем приложение пока не прошёл запрос токена
   if (loggedIn === undefined) {
     return <Preloader />;
@@ -280,9 +303,9 @@ function App() {
           preloader={preloader}
           onSort={handleSortInput}
           sortInput={sortInput}
-          onSearch={getAllMovies}
+          onSearch={saveAllMovies}
           allMovies={allMovies}
-          setSearchedMovies={setSearchedMovies}
+          sortMovie={sortMovie}
         />
         <ProtectedRoute
           path="/saved-movies"
