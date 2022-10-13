@@ -17,7 +17,7 @@ function MoviesCard({
   };
   return (
     <li className="movie">
-      <img src={`https://api.nomoreparties.co/${imgUrl}`} alt={title} className="movie__img" />
+      <img src={imgUrl} alt={title} className="movie__img" />
       <div className="movie__container">
         <h2 className="movie__title">{title}</h2>
         <p className="movie__duration">{transDuration()}</p>

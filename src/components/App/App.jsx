@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import {
   Route, Switch, useHistory, useLocation,
 } from 'react-router-dom';
 import './App.css';
+import isURL from 'validator/lib/isURL';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -16,7 +18,7 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 import mainApi from '../../utils/MainApi';
 import ProtectedRoute from '../../CustomHoocks/ProtectedRoute';
 import Preloader from '../Preloader/Preloader';
-import getMovies from '../../utils/MoviesApi';
+import { getMovies, MOVIES_URL } from '../../utils/MoviesApi';
 import errText from '../../utils/errText';
 
 function App() {
@@ -30,7 +32,12 @@ function App() {
   // стейт ошибки запроса
   const [reqMess, setReqMess] = React.useState({ err: false, mess: '' });
   // стейты фильмов
-  const [moviesData, setMoviesData] = React.useState([]);
+  const [allMovies, setAllMovies] = React.useState({ isEmpty: true, movies: [], text: 'Нет фильмов' });
+  const [searchedMovies, setSearchedMovies] = React.useState({ isEmpty: true, movies: [], text: 'Нет фильмов' });
+  const [savedMovies, setSavedMovies] = React.useState({ isEmpty: true, movies: [], text: 'Нет сохранённых фильмов' });
+  const [preloader, setPreloader] = React.useState(false);
+  const [sortInput, setSortInput] = React.useState('');
+  const [shortCheckbox, setShortCheckbox] = React.useState(false);
   // роуты где отбражется хэдер
   const headRoutes = ['/movies', '/saved-movies', '/profile', '/', '/signup', '/signin'];
   const footRoutes = ['/movies', '/saved-movies', '/']; // роуты где отбражется футер
@@ -148,6 +155,7 @@ function App() {
         if (res) {
           setLoggedIn(false);
           setCurrentUser({ _id: '', email: '', name: '' });
+          localStorage.clear();
           history.push('/');
         }
       })
@@ -186,13 +194,57 @@ function App() {
   };
 
   // Фильмецы
+  // получаем все фильмы из сервиса
   const getAllMovies = () => {
-    getMovies()
-      .then((moviesArray) => {
-        setMoviesData(moviesArray);
-      })
-      .catch((err) => console.log(err));
+    setPreloader(true); // отображаем прелоадер при запросе
+    const localAllMovies = localStorage.getItem('allMovies');
+    if (!localAllMovies) {
+      getMovies()
+        .then((moviesArray) => {
+          console.log(allMovies);
+          const newMoviesArray = moviesArray.map((movie) => ({
+            country: movie.country,
+            director: movie.director,
+            duration: movie.duration,
+            year: movie.year,
+            description: movie.description,
+            image: MOVIES_URL + movie.image.url,
+            trailerLink: isURL(movie.trailerLink) ? movie.trailerLink
+              : `https://www.youtube.com/results?search_query=${movie.nameEN.replace(/ /g, '+')}+trailer`,
+            thumbnail: MOVIES_URL + movie.image.formats.thumbnail.url,
+            movieId: movie.id,
+            nameRU: movie.nameRU,
+            nameEN: movie.nameEN,
+          }));
+          console.log(newMoviesArray);
+          setAllMovies({ isEmpty: false, movies: newMoviesArray });
+          localStorage.setItem('allMovies', JSON.stringify(newMoviesArray));
+        })
+        .catch((err) => {
+          console.log(err);
+          setAllMovies({ isEmpty: false, movies: [], text: '' });
+        })
+        .finally(() => {
+          setPreloader(false);
+        });
+    } else {
+      setAllMovies({ isEmpty: false, movies: JSON.parse(localAllMovies) });
+      setPreloader(false);
+    }
   };
+  // меняем статус чекбокса
+  const handleCheckbox = (e) => {
+    if (e.target.checked) {
+      setShortCheckbox(true);
+    } else {
+      setShortCheckbox(false);
+    }
+  };
+  // значение поля поиска
+  const handleSortInput = (e) => {
+    setSortInput(e.target.value);
+  };
+  // не отрисовываем приложение пока не прошёл запрос токена
   if (loggedIn === undefined) {
     return <Preloader />;
   }
@@ -220,17 +272,29 @@ function App() {
         <ProtectedRoute
           path="/movies"
           component={Movies}
-          getAllMovies={getAllMovies}
           loggedIn={loggedIn}
-          movies={moviesData}
+          movies={searchedMovies}
           pathname={pathname}
+          onCheckBox={handleCheckbox}
+          shortCheckbox={shortCheckbox}
+          preloader={preloader}
+          onSort={handleSortInput}
+          sortInput={sortInput}
+          onSearch={getAllMovies}
+          allMovies={allMovies}
+          setSearchedMovies={setSearchedMovies}
         />
         <ProtectedRoute
           path="/saved-movies"
           component={SavedMovies}
           loggedIn={loggedIn}
-          movies={moviesData}
+          movies={savedMovies}
           pathname={pathname}
+          onCheckBox={handleCheckbox}
+          shortCheckbox={shortCheckbox}
+          preloader={preloader}
+          onSort={handleSortInput}
+          sortInput={sortInput}
         />
         <ProtectedRoute
           path="/profile"
