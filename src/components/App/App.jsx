@@ -253,13 +253,7 @@ function App() {
   };
   console.log(lastSearch);
   // меняем статус чекбокса
-  const handleCheckbox = (e) => {
-    if (e.target.checked) {
-      setShortCheckbox(true);
-    } else {
-      setShortCheckbox(false);
-    }
-  };
+  const handleCheckbox = (e) => setShortCheckbox(!shortCheckbox);
   // значение поля поиска
   const handleSortInput = (e) => {
     setSortPhrase(e.target.value);
