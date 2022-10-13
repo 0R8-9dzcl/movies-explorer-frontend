@@ -251,7 +251,6 @@ function App() {
       });
     }
   };
-  console.log(lastSearch);
   // меняем статус чекбокса
   const handleCheckbox = (e) => setShortCheckbox(!shortCheckbox);
   // значение поля поиска
@@ -267,7 +266,6 @@ function App() {
   React.useEffect(() => {
     if (!lastSearch.isFirst) {
       localStorage.setItem('lastSearch', JSON.stringify(lastSearch));
-      console.log('cj[hghg');
     }
   }, [lastSearch]);
   React.useEffect(() => {
@@ -279,7 +277,6 @@ function App() {
       const currentSearch = JSON.parse(localStorage.getItem('lastSearch'));
       // setShortCheckbox(currentSearch.shortCheckbox);
       if (currentSearch) {
-        console.log(currentSearch);
         setSearchedMovies(currentSearch);
         setSortPhrase(currentSearch.sortPhrase);
         setShortCheckbox(currentSearch.shortCheckbox);
