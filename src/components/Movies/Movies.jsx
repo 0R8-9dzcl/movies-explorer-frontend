@@ -4,7 +4,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 function Movies({
   movies, allMovies, pathname, onSearch, sortMovie,
-  onCheckBox, shortCheckbox, onSort, sortInput, preloader,
+  onCheckBox, shortCheckbox, onSort, sortPhrase, preloader,
 }) {
   return (
     <main>
@@ -14,7 +14,7 @@ function Movies({
         onCheckBox={onCheckBox}
         shortCheckbox={shortCheckbox}
         onSort={onSort}
-        sortInput={sortInput}
+        sortPhrase={sortPhrase}
         sortMovie={sortMovie}
       />
       {preloader ? <Preloader /> : <MoviesCardList movies={movies} pathname={pathname} />}

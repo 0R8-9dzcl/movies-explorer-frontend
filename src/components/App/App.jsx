@@ -32,24 +32,18 @@ function App() {
   // стейт ошибки запроса
   const [reqMess, setReqMess] = React.useState({ err: false, mess: '' });
   // стейты фильмов
-  const [allMovies, setAllMovies] = React.useState({ isEmpty: true, movies: [], text: 'Нет фильмов' });
+  const [allMovies, setAllMovies] = React.useState({ isEmpty: true, movies: [] });
   const [searchedMovies, setSearchedMovies] = React.useState({ isEmpty: true, movies: [], text: 'Нет фильмов' });
   const [savedMovies, setSavedMovies] = React.useState({ isEmpty: true, movies: [], text: 'Нет сохранённых фильмов' });
+  const [lastSearch, setLastSearch] = React.useState({
+    isFirst: true, isEmpty: true, movies: [], text: '', shortCheckbox: false, sortPhrase: '',
+  });
   const [preloader, setPreloader] = React.useState(false);
-  const [sortInput, setSortInput] = React.useState('');
+  const [sortPhrase, setSortPhrase] = React.useState('');
   const [shortCheckbox, setShortCheckbox] = React.useState(false);
   // роуты где отбражется хэдер
   const headRoutes = ['/movies', '/saved-movies', '/profile', '/', '/signup', '/signin'];
   const footRoutes = ['/movies', '/saved-movies', '/']; // роуты где отбражется футер
-  React.useEffect(() => {
-    if (loggedIn) {
-      mainApi.getUser()
-        .then((userInfo) => {
-          setCurrentUser(userInfo.data);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [loggedIn, history]);
   // проверка токена
   const tokenCheck = () => {
     mainApi.getUser()
@@ -237,19 +231,27 @@ function App() {
   };
   // сортировка
   const sortMovie = () => {
+    console.log(shortCheckbox);
     const sortedMovie = allMovies.movies
-      .filter((m) => (shortCheckbox ? m.duration <= 30
-        && (m.nameRU.toLowerCase().includes(sortInput.toLowerCase())
-      || m.nameEN.toLowerCase().includes(sortInput.toLowerCase()))
-        : m.nameRU.toLowerCase().includes(sortInput.toLowerCase())
-      || m.nameEN.toLowerCase().includes(sortInput.toLowerCase())));
+      .filter((m) => (shortCheckbox ? m.duration <= 50
+        && (m.nameRU.toLowerCase().includes(sortPhrase.toLowerCase())
+      || m.nameEN.toLowerCase().includes(sortPhrase.toLowerCase()))
+        : m.nameRU.toLowerCase().includes(sortPhrase.toLowerCase())
+      || m.nameEN.toLowerCase().includes(sortPhrase.toLowerCase())));
     console.log(sortedMovie);
     if (sortedMovie.length > 0) {
       setSearchedMovies({ isEmpty: false, movies: sortedMovie });
+      setLastSearch({
+        isEmpty: false, movies: sortedMovie, text: '', shortCheckbox, sortPhrase,
+      });
     } else {
-      setSearchedMovies({ isEmpty: true, movies: sortedMovie, text: `Фильмы по запросу ${sortInput} не найдены` });
+      setSearchedMovies({ isEmpty: true, movies: sortedMovie, text: `Фильмы по запросу '${sortPhrase}' не найдены` });
+      setLastSearch({
+        isEmpty: true, movies: [], text: `Фильмы по запросу '${sortPhrase}' не найдены`, shortCheckbox, sortPhrase,
+      });
     }
   };
+  console.log(lastSearch);
   // меняем статус чекбокса
   const handleCheckbox = (e) => {
     if (e.target.checked) {
@@ -260,13 +262,36 @@ function App() {
   };
   // значение поля поиска
   const handleSortInput = (e) => {
-    setSortInput(e.target.value);
+    setSortPhrase(e.target.value);
   };
   React.useEffect(() => {
     if (!allMovies.isEmpty) {
       sortMovie();
     }
-  }, [allMovies]);
+  }, [allMovies, shortCheckbox]);
+  // сохраняем последний поиск в хранилище
+  React.useEffect(() => {
+    if (!lastSearch.isFirst) {
+      localStorage.setItem('lastSearch', JSON.stringify(lastSearch));
+      console.log('cj[hghg');
+    }
+  }, [lastSearch]);
+  React.useEffect(() => {
+    if (loggedIn) {
+      mainApi.getUser().then((userInfo) => {
+        setCurrentUser(userInfo.data);
+      })
+        .catch((err) => console.log(err));
+      const currentSearch = JSON.parse(localStorage.getItem('lastSearch'));
+      // setShortCheckbox(currentSearch.shortCheckbox);
+      if (currentSearch) {
+        console.log(currentSearch);
+        setSearchedMovies(currentSearch);
+        setSortPhrase(currentSearch.sortPhrase);
+        setShortCheckbox(currentSearch.shortCheckbox);
+      }
+    }
+  }, [loggedIn, history]);
   // не отрисовываем приложение пока не прошёл запрос токена
   if (loggedIn === undefined) {
     return <Preloader />;
@@ -302,7 +327,7 @@ function App() {
           shortCheckbox={shortCheckbox}
           preloader={preloader}
           onSort={handleSortInput}
-          sortInput={sortInput}
+          sortPhrase={sortPhrase}
           onSearch={saveAllMovies}
           allMovies={allMovies}
           sortMovie={sortMovie}
@@ -317,7 +342,7 @@ function App() {
           shortCheckbox={shortCheckbox}
           preloader={preloader}
           onSort={handleSortInput}
-          sortInput={sortInput}
+          sortPhrase={sortPhrase}
         />
         <ProtectedRoute
           path="/profile"
