@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import './MoviesCard.css';
 
 function MoviesCard({
@@ -22,7 +20,9 @@ function MoviesCard({
   };
   return (
     <li className="movie">
-      <img src={imgUrl} alt={title} onClick={kickToTrailer} className="movie__img" />
+      <button className="button movie__trailer" type="button" onClick={kickToTrailer}>
+        <img src={imgUrl} alt={title} className="movie__img" />
+      </button>
       <div className="movie__container">
         <h2 className="movie__title">{title}</h2>
         <p className="movie__duration">{transDuration()}</p>
