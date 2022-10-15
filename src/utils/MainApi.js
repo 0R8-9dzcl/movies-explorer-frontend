@@ -71,21 +71,18 @@ class MainApi {
       .then((res) => this.#checkOk(res));
   }
 
-  postMovie(name, link) {
+  postMovie(movie) {
     return fetch(`${this.url}/movies`, {
       method: 'POST',
       credentials: 'include',
       headers: this.headers,
-      body: JSON.stringify({
-        name,
-        link,
-      }),
+      body: JSON.stringify(movie),
     })
       .then((res) => this.#checkOk(res));
   }
 
   deleteMovie(movieId) {
-    return fetch(`${this.url}/cards/${movieId}`, {
+    return fetch(`${this.url}/movies/${movieId}`, {
       method: 'DELETE',
       credentials: 'include',
       headers: this.headers,
