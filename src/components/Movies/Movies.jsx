@@ -20,6 +20,7 @@ function Movies({
       {preloader ? <Preloader />
         : (
           <MoviesCardList
+            allMovies={allMovies}
             movies={movies}
             pathname={pathname}
             sortPhrase={sortPhrase}

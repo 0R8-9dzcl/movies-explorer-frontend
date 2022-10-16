@@ -16,6 +16,7 @@ function SavedMovies({
         sortPhrase={sortPhrase}
       />
       <MoviesCardList
+        allMovies={allMovies}
         movies={movies}
         pathname={pathname}
         saveMovie={saveMovie}
