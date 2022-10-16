@@ -364,7 +364,6 @@ function App() {
           path="/signup"
           component={Register}
           loggedIn={!loggedIn}
-          redirrectPath="/"
           pathname={pathname}
           onSubmit={handleRegister}
           reqMess={reqMess}
@@ -373,7 +372,6 @@ function App() {
           path="/movies"
           component={Movies}
           loggedIn={loggedIn}
-          redirrectPath="/signin"
           allMovies={allMovies}
           movies={searchedMovies}
           pathname={pathname}
@@ -391,7 +389,6 @@ function App() {
           path="/saved-movies"
           component={SavedMovies}
           loggedIn={loggedIn}
-          redirrectPath="/signin"
           allMovies={savedMovies}
           movies={sortedSavedMovies}
           pathname={pathname}
