@@ -20,6 +20,7 @@ import ProtectedRoute from '../../CustomHoocks/ProtectedRoute';
 import Preloader from '../Preloader/Preloader';
 import { getMovies, MOVIES_URL } from '../../utils/MoviesApi';
 import errText from '../../utils/errText';
+import params from '../../utils/params';
 
 function App() {
   const { pathname, key, hash } = useLocation();
@@ -137,6 +138,13 @@ function App() {
         if (res) {
           setLoggedIn(false);
           setCurrentUser({ _id: '', email: '', name: '' });
+          setAllMovies([]);
+          setSavedMovies([]);
+          setSortedSavedMovies([]);
+          setSearchedMovies([]);
+          setLastSearch({
+            isFirst: true, movies: [], shortCheckbox: false, sortPhrase: '',
+          });
           localStorage.clear();
           history.push('/');
         }
@@ -228,7 +236,7 @@ function App() {
   };
   // сортировка
   const sortMovie = (movies, remember, checkbox, input) => {
-    const sortedMovie = movies.filter((m) => (checkbox ? m.duration <= 50
+    const sortedMovie = movies.filter((m) => (checkbox ? m.duration <= params.shortDuration
         && (m.nameRU.toLowerCase().includes(input.toLowerCase())
       || m.nameEN.toLowerCase().includes(input.toLowerCase()))
       : m.nameRU.toLowerCase().includes(input.toLowerCase())
@@ -240,7 +248,7 @@ function App() {
     sortMovie(allMovies, rememberSearch, shortCheckbox, sortPhrase);
   };
   const handleSavedMoviesSearch = () => {
-    sortMovie(savedMovies, rememberSavedSearch, shortCheckbox, sortSavePhrase);
+    sortMovie(savedMovies, rememberSavedSearch, shortSaveCheckbox, sortSavePhrase);
   };
   // меняем статус чекбокса
   const handleCheckbox = () => setShortCheckbox(!shortCheckbox);
@@ -298,7 +306,7 @@ function App() {
   // при обновлении всех фильмов
   React.useEffect(() => {
     handleSavedMoviesSearch();
-  }, [savedMovies]);
+  }, [shortSaveCheckbox]);
   // сохраняем последний поиск в хранилище
   React.useEffect(() => {
     if (!lastSearch.isFirst) {
