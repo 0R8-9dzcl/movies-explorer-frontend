@@ -138,6 +138,10 @@ function App() {
         if (res) {
           setLoggedIn(false);
           setCurrentUser({ _id: '', email: '', name: '' });
+          setSortPhrase('');
+          setSaveSortPhrase('');
+          setShortCheckbox(false);
+          setSaveShortCheckbox(false);
           setAllMovies([]);
           setSavedMovies([]);
           setSortedSavedMovies([]);
