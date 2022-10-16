@@ -1,7 +1,9 @@
 import useInput from '../../CustomHoocks/FormFalidator';
 import UserForm from '../UserForm/UserForm';
 
-function Login({ pathname, onSubmit, reqMess }) {
+function Login({
+  pathname, onSubmit, reqMess, disableForm,
+}) {
   const email = useInput('', { isEmpty: false, isEmail: true });
   const password = useInput('', { isEmpty: false });
 
@@ -23,7 +25,7 @@ function Login({ pathname, onSubmit, reqMess }) {
           onSubmit={loginHandler}
           pathname={pathname}
           reqMess={reqMess}
-          disabledButton={!email.inputValid || !password.inputValid}
+          disabledButton={!email.inputValid || !password.inputValid || disableForm}
         >
           <label htmlFor="email" className="profile__label profile__label_type_auth">
             <span className="profile__span profile__span_type_auth">E-mail</span>

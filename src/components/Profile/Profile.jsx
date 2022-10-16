@@ -4,7 +4,7 @@ import useInput from '../../CustomHoocks/FormFalidator';
 import UserForm from '../UserForm/UserForm';
 
 function Profile({
-  editUser, saveUser, profileEdit, pathname, onLogout, reqMess,
+  editUser, saveUser, profileEdit, pathname, onLogout, reqMess, disableForm,
 }) {
   const currentUser = useContext(CurrentUserContext);
   const name = useInput(currentUser.name, {
@@ -44,6 +44,7 @@ function Profile({
           disabledButton={
             (!email.inputValid || !name.inputValid)
             || (name.value === currentUser.name && email.value === currentUser.email)
+            || disableForm
           }
         >
           <label htmlFor="name" className="profile__label">

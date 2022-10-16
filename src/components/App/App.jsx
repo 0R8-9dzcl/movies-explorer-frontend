@@ -45,6 +45,7 @@ function App() {
   const [shortCheckbox, setShortCheckbox] = React.useState(false);
   const [sortSavePhrase, setSaveSortPhrase] = React.useState('');
   const [shortSaveCheckbox, setSaveShortCheckbox] = React.useState(false);
+  const [disableForm, setDisableForm] = React.useState(false);
   // роуты где отбражется хэдер
   const headRoutes = ['/movies', '/saved-movies', '/profile', '/', '/signup', '/signin'];
   const footRoutes = ['/movies', '/saved-movies', '/']; // роуты где отбражется футер
@@ -93,6 +94,7 @@ function App() {
   }, []);
   // логин пользователя
   const handleLogin = (email, password) => {
+    setDisableForm(true);
     mainApi.login(email, password)
       .then((user) => {
         setCurrentUser(user.data);
@@ -108,10 +110,12 @@ function App() {
           setReqMess({ err: true, mess: errText.serverError });
         }
         console.log(err);
-      });
+      })
+      .finally(() => setDisableForm(false));
   };
   // регистрация пользователя
   const handleRegister = (name, email, password) => {
+    setDisableForm(true);
     mainApi.register(name, email, password)
       .then((res) => {
         if (res) {
@@ -129,7 +133,8 @@ function App() {
           setReqMess({ err: true, mess: errText.serverError });
         }
         console.log(err);
-      });
+      })
+      .finally(() => setDisableForm(false));
   };
   // выход пользователя
   const handleLogout = () => {
@@ -162,6 +167,7 @@ function App() {
     setProfileEdit(true);
   };
   const saveUser = (name, email) => {
+    setDisableForm(true);
     mainApi.patchUser(name, email)
       .then((user) => {
         if (user) {
@@ -181,7 +187,8 @@ function App() {
           setReqMess({ err: true, mess: errText.serverError });
         }
         console.log(err);
-      });
+      })
+      .finally(() => setDisableForm(false));
   };
   const goBack = () => {
     history.goBack();
@@ -287,9 +294,10 @@ function App() {
       })
       .catch((err) => console.log(err));
   };
-  // закрытие бургера при переходе
+  // закрытие бургера при переходе и отключение редактирования пользователя
   React.useEffect(() => {
     setBurgerOpen(false);
+    setProfileEdit(false);
   }, [pathname]);
   // перемешение к id
   React.useEffect(() => {
@@ -363,6 +371,7 @@ function App() {
           pathname={pathname}
           onSubmit={handleLogin}
           reqMess={reqMess}
+          disableForm={disableForm}
         />
         <ProtectedRoute
           path="/signup"
@@ -371,6 +380,7 @@ function App() {
           pathname={pathname}
           onSubmit={handleRegister}
           reqMess={reqMess}
+          disableForm={disableForm}
         />
         <ProtectedRoute
           path="/movies"
@@ -417,6 +427,7 @@ function App() {
           pathname={pathname}
           onLogout={handleLogout}
           reqMess={reqMess}
+          disableForm={disableForm}
         />
         <Route exact path="/*">
           <PageNotFound

@@ -1,7 +1,9 @@
 import useInput from '../../CustomHoocks/FormFalidator';
 import UserForm from '../UserForm/UserForm';
 
-function Register({ pathname, onSubmit, reqMess }) {
+function Register({
+  pathname, onSubmit, reqMess, disableForm,
+}) {
   const name = useInput('', {
     isEmpty: false, minLength: 2, maxLength: 30,
   });
@@ -25,7 +27,9 @@ function Register({ pathname, onSubmit, reqMess }) {
           onSubmit={registerHandler}
           pathname={pathname}
           reqMess={reqMess}
-          disabledButton={!email.inputValid || !name.inputValid || !password.inputValid}
+          disabledButton={
+            !email.inputValid || !name.inputValid || !password.inputValid || disableForm
+          }
         >
           <label htmlFor="name" className="profile__label profile__label_type_auth">
             <span className="profile__span profile__span_type_auth">Имя</span>
