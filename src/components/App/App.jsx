@@ -179,7 +179,6 @@ function App() {
   const getAllMovies = () => {
     getMovies()
       .then((moviesArray) => {
-        console.log(allMovies);
         const newMoviesArray = moviesArray.map((movie) => ({
           country: movie.country,
           director: movie.director,
@@ -194,7 +193,6 @@ function App() {
           nameRU: movie.nameRU,
           nameEN: movie.nameEN,
         }));
-        console.log(newMoviesArray);
         localStorage.setItem('allMovies', JSON.stringify(newMoviesArray));
         setAllMovies(newMoviesArray);
       })
@@ -235,7 +233,6 @@ function App() {
       || m.nameEN.toLowerCase().includes(input.toLowerCase()))
       : m.nameRU.toLowerCase().includes(input.toLowerCase())
       || m.nameEN.toLowerCase().includes(input.toLowerCase())));
-    console.log(sortedMovie);
     remember(sortedMovie);
   };
   const handleAllMoviesSearch = () => {
@@ -270,7 +267,6 @@ function App() {
   // удаление фильма
   const handleDeleteMovie = (movie) => {
     const deletingMovie = savedMovies.find((m) => m.movieId === movie.movieId);
-    console.log(deletingMovie);
     mainApi.deleteMovie(deletingMovie._id)
       .then(() => {
         setSavedMovies((item) => item.filter((m) => m.movieId !== movie.movieId));
@@ -278,8 +274,6 @@ function App() {
       })
       .catch((err) => console.log(err));
   };
-  console.log(sortedSavedMovies);
-  console.log(savedMovies);
   // закрытие бургера при переходе
   React.useEffect(() => {
     setBurgerOpen(false);
