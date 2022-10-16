@@ -9,11 +9,11 @@ import params from '../../utils/params';
 function MoviesCardList({
   allMovies, movies, pathname, saveMovie, checkSaved, deleteMovie,
 }) {
-  const [moviesQuantity, setMoviesQuanity] = useState(0); // количество фильмов
-  const [moreMovies, setMoreMovies] = useState(0);
+  const screenWidth = useWidth();
+  const [moviesQuantity, setMoviesQuanity] = useState(12); // количество фильмов
+  const [moreMovies, setMoreMovies] = useState(3);
   const [sliceMovies, setSliceMovies] = useState([]);
 
-  const screenWidth = useWidth();
   useEffect(() => {
     if (pathname === '/movies') {
       if ((screenWidth) >= params.widthParams.desktop.width) {
