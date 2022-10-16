@@ -185,6 +185,7 @@ function App() {
   // Фильмецы
   // получаем все фильмы из сервиса
   const getAllMovies = () => {
+    setPreloader(true);
     getMovies()
       .then((moviesArray) => {
         const newMoviesArray = moviesArray.map((movie) => ({
@@ -278,7 +279,7 @@ function App() {
     mainApi.deleteMovie(deletingMovie._id)
       .then(() => {
         setSavedMovies((item) => item.filter((m) => m.movieId !== movie.movieId));
-        // setSortedSavedMovies((item) => item.filter((m) => m._id !== movie._id));
+        setSortedSavedMovies((item) => item.filter((m) => m._id !== movie._id));
       })
       .catch((err) => console.log(err));
   };
