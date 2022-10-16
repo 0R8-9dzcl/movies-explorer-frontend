@@ -42,6 +42,11 @@
   line-height: 18px;
   text-align: center;
   color: #FFFFFF;
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
+}
+.search__button:disabled {
+  background-color: #f8f8f8;
+  color: #c2c2c2;
 }
 .search__label {
   gap: 15px;
@@ -90,6 +95,9 @@
   left: 50%;
   right: 5.56%;
   background-color: #f5f5f5;
+}
+.search__short-checkbox:disabled::after, .search__short-checkbox:disabled::before {
+  opacity: .8;
 }
 @media screen and (max-width:768px) {
   .search {

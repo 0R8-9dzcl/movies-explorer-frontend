@@ -3,13 +3,13 @@ import Preloader from '../Preloader/Preloader';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 function Movies({
-  movies, allMovies, pathname, onSearch, sortMovie,
-  onCheckBox, shortCheckbox, onSort, sortPhrase, preloader,
+  movies, allMovies, pathname, saveAllMovies, sortMovie, saveMovie, deleteMovie,
+  onCheckBox, shortCheckbox, onSort, sortPhrase, preloader, checkSaved,
 }) {
   return (
     <main>
       <SearchForm
-        onSearch={onSearch}
+        saveAllMovies={saveAllMovies}
         allMovies={allMovies}
         onCheckBox={onCheckBox}
         shortCheckbox={shortCheckbox}
@@ -17,7 +17,17 @@ function Movies({
         sortPhrase={sortPhrase}
         sortMovie={sortMovie}
       />
-      {preloader ? <Preloader /> : <MoviesCardList movies={movies} pathname={pathname} />}
+      {preloader ? <Preloader />
+        : (
+          <MoviesCardList
+            movies={movies}
+            pathname={pathname}
+            sortPhrase={sortPhrase}
+            saveMovie={saveMovie}
+            checkSaved={checkSaved}
+            deleteMovie={deleteMovie}
+          />
+        )}
     </main>
   );
 }

@@ -47,6 +47,7 @@
   border-radius: 50px;
   outline: none;
   border: 2px #fff solid;
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
 }
 .movie__saved_type_active {
   background-color: #2BE080;

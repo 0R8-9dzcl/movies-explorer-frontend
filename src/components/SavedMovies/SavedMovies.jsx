@@ -1,21 +1,26 @@
 import SearchForm from '../SearchForm/SearchForm';
-// import Preloader from '../Preloader/Preloader';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 function SavedMovies({
-  movies, pathname, onCheckBox, shortCheckbox, onSort, sortMovie,
+  allMovies, movies, pathname, onCheckBox, shortCheckbox,
+  onSort, sortMovie, sortPhrase, saveMovie, deleteMovie, checkSaved,
 }) {
   return (
     <main>
-      <SearchForm />
-      {/* <Preloader /> */}
-      <MoviesCardList
-        movies={movies}
-        pathname={pathname}
+      <SearchForm
+        allMovies={allMovies}
         onCheckBox={onCheckBox}
         shortCheckbox={shortCheckbox}
         onSort={onSort}
         sortMovie={sortMovie}
+        sortPhrase={sortPhrase}
+      />
+      <MoviesCardList
+        movies={movies}
+        pathname={pathname}
+        saveMovie={saveMovie}
+        checkSaved={checkSaved}
+        deleteMovie={deleteMovie}
       />
     </main>
   );

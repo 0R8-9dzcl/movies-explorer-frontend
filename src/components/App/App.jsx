@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import {
   Route, Switch, useHistory, useLocation,
@@ -32,15 +32,18 @@ function App() {
   // стейт ошибки запроса
   const [reqMess, setReqMess] = React.useState({ err: false, mess: '' });
   // стейты фильмов
-  const [allMovies, setAllMovies] = React.useState({ isEmpty: true, movies: [] });
-  const [searchedMovies, setSearchedMovies] = React.useState({ isEmpty: true, movies: [], text: 'Нет фильмов' });
-  const [savedMovies, setSavedMovies] = React.useState({ isEmpty: true, movies: [], text: 'Нет сохранённых фильмов' });
+  const [allMovies, setAllMovies] = React.useState([]);
+  const [savedMovies, setSavedMovies] = React.useState([]);
+  const [sortedSavedMovies, setSortedSavedMovies] = React.useState([]);
+  const [searchedMovies, setSearchedMovies] = React.useState([]);
   const [lastSearch, setLastSearch] = React.useState({
-    isFirst: true, isEmpty: true, movies: [], text: '', shortCheckbox: false, sortPhrase: '',
+    isFirst: true, movies: [], shortCheckbox: false, sortPhrase: '',
   });
   const [preloader, setPreloader] = React.useState(false);
   const [sortPhrase, setSortPhrase] = React.useState('');
   const [shortCheckbox, setShortCheckbox] = React.useState(false);
+  const [sortSavePhrase, setSaveSortPhrase] = React.useState('');
+  const [shortSaveCheckbox, setSaveShortCheckbox] = React.useState(false);
   // роуты где отбражется хэдер
   const headRoutes = ['/movies', '/saved-movies', '/profile', '/', '/signup', '/signin'];
   const footRoutes = ['/movies', '/saved-movies', '/']; // роуты где отбражется футер
@@ -87,21 +90,6 @@ function App() {
       document.removeEventListener('click', closeByClick);
     };
   }, []);
-  // закрытие бургера при переходе
-  React.useEffect(() => {
-    setBurgerOpen(false);
-  }, [pathname]);
-  // перемешение к id
-  React.useEffect(() => {
-    if (hash) {
-      const targetElement = document.getElementById(hash.substring(1));
-      targetElement?.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [key, hash]);
-  // очистить ошибку сабмита при переходе
-  React.useEffect(() => {
-    setReqMess({ err: false, mess: '' });
-  }, [pathname]);
   // логин пользователя
   const handleLogin = (email, password) => {
     mainApi.login(email, password)
@@ -186,7 +174,6 @@ function App() {
   const goBack = () => {
     history.goBack();
   };
-
   // Фильмецы
   // получаем все фильмы из сервиса
   const getAllMovies = () => {
@@ -209,11 +196,11 @@ function App() {
         }));
         console.log(newMoviesArray);
         localStorage.setItem('allMovies', JSON.stringify(newMoviesArray));
-        setAllMovies({ isEmpty: false, movies: newMoviesArray });
+        setAllMovies(newMoviesArray);
       })
       .catch((err) => {
         console.log(err);
-        setAllMovies({ isEmpty: false, movies: [], text: '' });
+        setAllMovies([]);
       })
       .finally(() => {
         setPreloader(false);
@@ -221,63 +208,122 @@ function App() {
   };
   // сохряняю все фильмы в стейт
   const saveAllMovies = () => {
-    const localAllMovies = localStorage.getItem('allMovies');
-    if (!localAllMovies) {
-      getAllMovies();
-    } else {
-      setAllMovies({ isEmpty: false, movies: JSON.parse(localAllMovies) });
-      setPreloader(false);
+    if (allMovies < 1) {
+      const localAllMovies = JSON.parse(localStorage.getItem('allMovies'));
+      if (!localAllMovies) {
+        getAllMovies();
+      } else {
+        setAllMovies(localAllMovies);
+        setPreloader(false);
+      }
     }
+  };
+  // сохраняем искомые фильмы
+  const rememberSearch = (sortedMovie) => {
+    setSearchedMovies(sortedMovie);
+    setLastSearch({
+      isFirst: false, movies: sortedMovie, shortCheckbox, sortPhrase,
+    });
+  };
+  const rememberSavedSearch = (sortedMovie) => {
+    setSortedSavedMovies(sortedMovie);
   };
   // сортировка
-  const sortMovie = () => {
-    console.log(shortCheckbox);
-    const sortedMovie = allMovies.movies
-      .filter((m) => (shortCheckbox ? m.duration <= 50
-        && (m.nameRU.toLowerCase().includes(sortPhrase.toLowerCase())
-      || m.nameEN.toLowerCase().includes(sortPhrase.toLowerCase()))
-        : m.nameRU.toLowerCase().includes(sortPhrase.toLowerCase())
-      || m.nameEN.toLowerCase().includes(sortPhrase.toLowerCase())));
+  const sortMovie = (movies, remember, checkbox, input) => {
+    const sortedMovie = movies.filter((m) => (checkbox ? m.duration <= 50
+        && (m.nameRU.toLowerCase().includes(input.toLowerCase())
+      || m.nameEN.toLowerCase().includes(input.toLowerCase()))
+      : m.nameRU.toLowerCase().includes(input.toLowerCase())
+      || m.nameEN.toLowerCase().includes(input.toLowerCase())));
     console.log(sortedMovie);
-    if (sortedMovie.length > 0) {
-      setSearchedMovies({ isEmpty: false, movies: sortedMovie });
-      setLastSearch({
-        isEmpty: false, movies: sortedMovie, text: '', shortCheckbox, sortPhrase,
-      });
-    } else {
-      setSearchedMovies({ isEmpty: true, movies: sortedMovie, text: `Фильмы по запросу '${sortPhrase}' не найдены` });
-      setLastSearch({
-        isEmpty: true, movies: [], text: `Фильмы по запросу '${sortPhrase}' не найдены`, shortCheckbox, sortPhrase,
-      });
-    }
+    remember(sortedMovie);
+  };
+  const handleAllMoviesSearch = () => {
+    saveAllMovies();
+    sortMovie(allMovies, rememberSearch, shortCheckbox, sortPhrase);
+  };
+  const handleSavedMoviesSearch = () => {
+    sortMovie(savedMovies, rememberSavedSearch, shortCheckbox, sortSavePhrase);
   };
   // меняем статус чекбокса
-  const handleCheckbox = (e) => setShortCheckbox(!shortCheckbox);
+  const handleCheckbox = () => setShortCheckbox(!shortCheckbox);
   // значение поля поиска
-  const handleSortInput = (e) => {
-    setSortPhrase(e.target.value);
+  const handleSortInput = (e) => setSortPhrase(e.target.value);
+  // меняем статус чекбокса
+  const handleSaveCheckbox = () => setSaveShortCheckbox(!shortSaveCheckbox);
+  // значение поля поиска
+  const handleSaveSortInput = (e) => setSaveSortPhrase(e.target.value);
+  // проверка лайка
+  const checkSaved = (movie) => savedMovies
+    .some((savedMovie) => (savedMovie.movieId === movie.movieId));
+  // сохраниние фильма
+  const handleSaveMovie = (movie) => {
+    mainApi.postMovie(movie)
+      .then((savedMovie) => {
+        if (savedMovie) {
+          setSortedSavedMovies([...sortedSavedMovies, savedMovie.data]);
+          setSavedMovies([...savedMovies, savedMovie.data]);
+        }
+      })
+      .catch((err) => console.log(err));
   };
+  // удаление фильма
+  const handleDeleteMovie = (movie) => {
+    const deletingMovie = savedMovies.find((m) => m.movieId === movie.movieId);
+    console.log(deletingMovie);
+    mainApi.deleteMovie(deletingMovie._id)
+      .then(() => {
+        setSavedMovies((item) => item.filter((m) => m.movieId !== movie.movieId));
+        // setSortedSavedMovies((item) => item.filter((m) => m._id !== movie._id));
+      })
+      .catch((err) => console.log(err));
+  };
+  console.log(sortedSavedMovies);
+  console.log(savedMovies);
+  // закрытие бургера при переходе
   React.useEffect(() => {
-    if (!allMovies.isEmpty) {
-      sortMovie();
+    setBurgerOpen(false);
+  }, [pathname]);
+  // перемешение к id
+  React.useEffect(() => {
+    if (hash) {
+      const targetElement = document.getElementById(hash.substring(1));
+      targetElement?.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [allMovies, shortCheckbox]);
+  }, [key, hash]);
+  // очистить ошибку сабмита при переходе
+  React.useEffect(() => {
+    setReqMess({ err: false, mess: '' });
+  }, [pathname]);
+  // поиск кликом по чекбоксу или при первом поиске при записи всех фильмов
+  React.useEffect(() => {
+    if (allMovies.length > 1) {
+      handleAllMoviesSearch();
+    }
+  }, [shortCheckbox || allMovies]);
+  // при обновлении всех фильмов
+  React.useEffect(() => {
+    handleSavedMoviesSearch();
+  }, [savedMovies]);
   // сохраняем последний поиск в хранилище
   React.useEffect(() => {
     if (!lastSearch.isFirst) {
       localStorage.setItem('lastSearch', JSON.stringify(lastSearch));
     }
   }, [lastSearch]);
+  // получаем данные пользователя и сохранённые фильмы и последний поиск
   React.useEffect(() => {
     if (loggedIn) {
-      mainApi.getUser().then((userInfo) => {
-        setCurrentUser(userInfo.data);
-      })
+      Promise.all([mainApi.getUser(), mainApi.getSavedMovies()])
+        .then(([userInfo, moviesList]) => {
+          setCurrentUser(userInfo.data);
+          setSavedMovies(moviesList.data);
+          setSortedSavedMovies(moviesList.data);
+        })
         .catch((err) => console.log(err));
       const currentSearch = JSON.parse(localStorage.getItem('lastSearch'));
-      // setShortCheckbox(currentSearch.shortCheckbox);
       if (currentSearch) {
-        setSearchedMovies(currentSearch);
+        setSearchedMovies(currentSearch.movies);
         setSortPhrase(currentSearch.sortPhrase);
         setShortCheckbox(currentSearch.shortCheckbox);
       }
@@ -302,16 +348,30 @@ function App() {
         <Route exact path="/">
           <Main />
         </Route>
-        <Route path="/signin">
-          <Login pathname={pathname} onSubmit={handleLogin} reqMess={reqMess} />
-        </Route>
-        <Route path="/signup">
-          <Register pathname={pathname} onSubmit={handleRegister} reqMess={reqMess} />
-        </Route>
+        <ProtectedRoute
+          path="/signin"
+          component={Login}
+          loggedIn={!loggedIn}
+          redirrectPath="/"
+          pathname={pathname}
+          onSubmit={handleLogin}
+          reqMess={reqMess}
+        />
+        <ProtectedRoute
+          path="/signup"
+          component={Register}
+          loggedIn={!loggedIn}
+          redirrectPath="/"
+          pathname={pathname}
+          onSubmit={handleRegister}
+          reqMess={reqMess}
+        />
         <ProtectedRoute
           path="/movies"
           component={Movies}
           loggedIn={loggedIn}
+          redirrectPath="/signin"
+          allMovies={allMovies}
           movies={searchedMovies}
           pathname={pathname}
           onCheckBox={handleCheckbox}
@@ -319,26 +379,34 @@ function App() {
           preloader={preloader}
           onSort={handleSortInput}
           sortPhrase={sortPhrase}
-          onSearch={saveAllMovies}
-          allMovies={allMovies}
-          sortMovie={sortMovie}
+          sortMovie={handleAllMoviesSearch}
+          saveMovie={handleSaveMovie}
+          deleteMovie={handleDeleteMovie}
+          checkSaved={checkSaved}
         />
         <ProtectedRoute
           path="/saved-movies"
           component={SavedMovies}
           loggedIn={loggedIn}
-          movies={savedMovies}
+          redirrectPath="/signin"
+          allMovies={savedMovies}
+          movies={sortedSavedMovies}
           pathname={pathname}
-          onCheckBox={handleCheckbox}
-          shortCheckbox={shortCheckbox}
+          onCheckBox={handleSaveCheckbox}
+          shortCheckbox={shortSaveCheckbox}
           preloader={preloader}
-          onSort={handleSortInput}
-          sortPhrase={sortPhrase}
+          onSort={handleSaveSortInput}
+          sortPhrase={sortSavePhrase}
+          sortMovie={handleSavedMoviesSearch}
+          saveMovie={handleSaveMovie}
+          deleteMovie={handleDeleteMovie}
+          checkSaved={checkSaved}
         />
         <ProtectedRoute
           path="/profile"
           component={Profile}
           loggedIn={loggedIn}
+          redirrectPath="/signin"
           editUser={editUser}
           saveUser={saveUser}
           profileEdit={profileEdit}
@@ -346,13 +414,12 @@ function App() {
           onLogout={handleLogout}
           reqMess={reqMess}
         />
-        <ProtectedRoute
-          exact
-          path="/*"
-          component={PageNotFound}
-          loggedIn={loggedIn}
-          onGoBack={goBack}
-        />
+        <Route exact path="/*">
+          <PageNotFound
+            loggedIn={loggedIn}
+            onGoBack={goBack}
+          />
+        </Route>
       </Switch>
       <Route exact path={footRoutes}>
         <Footer />
