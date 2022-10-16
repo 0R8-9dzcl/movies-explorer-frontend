@@ -1,39 +1,44 @@
-// import { useEffect, useState } from 'react';
+/* eslint-disable no-unused-vars */
+import { useEffect, useState } from 'react';
 import './MoviesCardList.css';
 import { Route } from 'react-router-dom';
 import MoviesCard from '../MoviesCard/MoviesCard';
-// import useWidth from '../../CustomHoocks/WidthListener';
-// import widthParams from '../../utils/widthParams';
+import useWidth from '../../CustomHoocks/WidthListener';
+import params from '../../utils/params';
 
 function MoviesCardList({
-  allMovies, movies, pathname, sortPhrase, saveMovie, checkSaved, deleteMovie,
+  allMovies, movies, pathname, saveMovie, checkSaved, deleteMovie,
 }) {
-  // const [moviesQuantity, setMoviesQuanity] = useState(0);
-  // const [moreMovies, setMoreMovies] = useState(0);
-  // const screenWidth = useWidth();
-  // useEffect(() => {
-  //   if (pathname === '/movies') {
-  //     if ((screenWidth) >= widthParams.desktop.width) {
-  //       setMoviesQuanity(widthParams.desktop.startCards);
-  //       setMoreMovies(widthParams.desktop.plusCard);
-  //     }
-  //     if (screenWidth <= widthParams.desktop.width && screenWidth > widthParams.mobile.width) {
-  //       setMoviesQuanity(widthParams.tablet.startCards);
-  //       setMoreMovies(widthParams.tablet.plusCard);
-  //     }
-  //     if (screenWidth <= widthParams.mobile.width) {
-  //       setMoviesQuanity(widthParams.mobile.startCards);
-  //       setMoreMovies(widthParams.mobile.plusCard);
-  //     }
-  //   }
-  //   if (pathname === '/saved-movies') {
-  //     setMoviesQuanity(movies.length);
-  //   }
-  // }, [pathname, movies, screenWidth, moreMovies, moviesQuantity]);
+  const [moviesQuantity, setMoviesQuanity] = useState(0); // количество фильмов
+  const [moreMovies, setMoreMovies] = useState(0);
+  const [sliceMovies, setSliceMovies] = useState([]);
 
-  // const getMoreCard = setMoviesQuanity((moviesQuantity + moreMovies) <= movies.length);
-  // const sliceMovies = movies.slice(0, moviesQuantity);
-  const sliceMovies = movies.slice(0, movies.length);
+  const screenWidth = useWidth();
+  useEffect(() => {
+    if (pathname === '/movies') {
+      if ((screenWidth) >= params.widthParams.desktop.width) {
+        setMoviesQuanity(params.widthParams.desktop.startCards);
+        setMoreMovies(params.widthParams.desktop.plusCard);
+      }
+      if (screenWidth <= params.widthParams.desktop.width
+        && screenWidth > params.widthParams.mobile.width) {
+        setMoviesQuanity(params.widthParams.tablet.startCards);
+        setMoreMovies(params.widthParams.tablet.plusCard);
+      }
+      if (screenWidth <= params.widthParams.mobile.width) {
+        setMoviesQuanity(params.widthParams.mobile.startCards);
+        setMoreMovies(params.widthParams.mobile.plusCard);
+      }
+    }
+    if (pathname === '/saved-movies') {
+      setMoviesQuanity(movies.length);
+    }
+  }, [pathname, movies, screenWidth]);
+  const getMoreCard = () => ((moviesQuantity < movies.length)
+    ? setMoviesQuanity(moviesQuantity + moreMovies) : movies.length);
+  useEffect(() => {
+    setSliceMovies(movies.slice(0, moviesQuantity));
+  }, [movies, moviesQuantity, moreMovies]);
   return (
     <section className="movies">
       <div className={`movies__empty${
@@ -43,7 +48,7 @@ function MoviesCardList({
         <Route path="/movies">
           <p className="movies__empty__text">
             {
-              ((!sortPhrase && allMovies.length === 0) && 'Нужно ввести ключевое слово')
+              ((movies.length === 0 && allMovies.length === 0) && 'Нужно ввести ключевое слово')
               || ((movies.length === 0 && allMovies.length > 0)
               && 'Фильмы по вашему запросу не найдены')
             }
@@ -77,7 +82,7 @@ function MoviesCardList({
       </ul>
       <div className="movies__more">
         <Route path="/movies">
-          { movies.length < 1 && <button type="button" className="button movies__more-button">Ещё</button>}
+          { (movies.length >= moviesQuantity) && <button type="button" onClick={getMoreCard} className="button movies__more-button">Ещё</button>}
         </Route>
       </div>
     </section>

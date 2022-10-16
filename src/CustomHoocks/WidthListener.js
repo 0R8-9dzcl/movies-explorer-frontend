@@ -3,14 +3,11 @@ import React from 'react';
 const useWidth = () => {
   // стейт ширины
   const [width, setWidth] = React.useState(0);
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     const handleWidthUpdate = () => {
       setWidth(window.innerWidth);
     };
-    let resizeWidth;
-    const resizeWidthTimer = setTimeout(() => !resizeWidth && handleWidthUpdate(), 1000);
-    console.log('я обновился - вешайся');
-    window.addEventListener('resize', resizeWidthTimer);
+    window.addEventListener('resize', handleWidthUpdate);
     return () => window.removeEventListener('resize', handleWidthUpdate);
   }, []);
   return width;
