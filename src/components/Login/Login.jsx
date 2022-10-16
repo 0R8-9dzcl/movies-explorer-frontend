@@ -62,13 +62,13 @@ function Login({
               required
               noValidate
             />
+            <span className={`profile__span profile__span_type_auth profile__span_type_hidden${
+              !password.inputValid && password.isDirty ? ' profile__span_type_error' : ''
+            }`}
+            >
+              {password.errText}
+            </span>
           </label>
-          <span className={`profile__span profile__span_type_auth profile__span_type_hidden${
-            !password.inputValid && password.isDirty ? ' profile__span_type_error' : ''
-          }`}
-          >
-            {password.errText}
-          </span>
         </UserForm>
       </section>
     </main>
