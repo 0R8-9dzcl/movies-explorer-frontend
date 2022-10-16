@@ -290,7 +290,7 @@ function App() {
     mainApi.deleteMovie(deletingMovie._id)
       .then(() => {
         setSavedMovies((item) => item.filter((m) => m.movieId !== movie.movieId));
-        setSortedSavedMovies((item) => item.filter((m) => m._id !== movie._id));
+        setSortedSavedMovies((item) => item.filter((m) => m.movieId !== movie.movieId));
       })
       .catch((err) => console.log(err));
   };
