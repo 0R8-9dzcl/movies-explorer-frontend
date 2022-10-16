@@ -2,7 +2,7 @@ import React from 'react';
 
 const useWidth = () => {
   // стейт ширины
-  const [width, setWidth] = React.useState(0);
+  const [width, setWidth] = React.useState(window.innerWidth);
   React.useLayoutEffect(() => {
     const handleWidthUpdate = () => {
       setWidth(window.innerWidth);
