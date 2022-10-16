@@ -16,6 +16,7 @@ function Movies({
         onSort={onSort}
         sortPhrase={sortPhrase}
         sortMovie={sortMovie}
+        pathname={pathname}
       />
       {preloader ? <Preloader />
         : (

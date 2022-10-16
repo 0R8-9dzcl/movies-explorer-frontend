@@ -1,7 +1,7 @@
 import './SearchForm.css';
 
 function SearchForm({
-  allMovies, onCheckBox, shortCheckbox,
+  allMovies, onCheckBox, shortCheckbox, pathname,
   onSort, sortPhrase, sortMovie, rememberSearch,
 }) {
   const handleCheckbox = (e) => {
@@ -18,13 +18,13 @@ function SearchForm({
   return (
     <section className="search" onSubmit={handleSearch}>
       <form className="search__form" name="search">
-        <input placeholder="Фильм" name="movie" type="text" onChange={handleSortInput} value={sortPhrase} className="search__input" required />
-        <button type="submit" name="submit" disabled={sortPhrase.length < 1} className="button search__button">Поиск</button>
+        <input placeholder="Фильм" name="movie" type="text" onChange={handleSortInput} value={sortPhrase} className="search__input" noValidate />
+        <button type="submit" name="submit" disabled={pathname !== '/saved-movies' && sortPhrase.length < 1} className="button search__button">Поиск</button>
         <label className="search__label" htmlFor="short">
           <input
             className="search__short-checkbox"
             type="checkbox"
-            disabled={sortPhrase.length < 1 || allMovies < 1}
+            disabled={pathname !== '/saved-movies' && (sortPhrase.length < 1 || allMovies < 1)}
             onChange={handleCheckbox}
             name="short"
             id="short"

@@ -14,6 +14,7 @@ function SavedMovies({
         onSort={onSort}
         sortMovie={sortMovie}
         sortPhrase={sortPhrase}
+        pathname={pathname}
       />
       <MoviesCardList
         allMovies={allMovies}
