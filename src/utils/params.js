@@ -4,12 +4,12 @@ const params = {
     desktop: {
       width: 1280,
       startCards: 12,
-      plusCard: 3,
+      plusCard: 4,
     },
     tablet: {
       width: 768,
       startCards: 8,
-      plusCard: 2,
+      plusCard: 3,
     },
     mobile: {
       width: 480,
