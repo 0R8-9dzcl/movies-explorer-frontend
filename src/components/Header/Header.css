@@ -1,13 +1,11 @@
 .header {
-  height: 74px;
+  height: auto;
   width: 100%;
   background-color: #fff;
 }
 .header_theme_dark{
   background-color: #073042;
-}
-.header_type_auth {
-  height: auto;
+  color: #fff;
 }
 .header__container {
   display: flex;
@@ -29,7 +27,7 @@
 .header__burger {
   display: none;
   z-index: 0;
-  background-color: #fff;
+  background-color: initial;
   background-repeat: no-repeat;
   background-size: contain;
   border: none;
@@ -45,6 +43,9 @@
 }
 
 @media screen and (max-width: 768px) {
+  .header_theme_dark {
+    color: #000;
+  }
   .header__logo-button {
     margin: 18px 30px;
   }

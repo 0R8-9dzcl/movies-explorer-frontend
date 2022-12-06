@@ -37,23 +37,19 @@
   position: relative;
   transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
 }
-.profile__label:focus-within {
-  box-shadow: 0px 3px 6px rgb(0 0 0 / 9%);
-  scale: 1.01;
-}
 .profile__label_type_auth {
   display: block;
   margin-bottom: 21px;
   height: 47px;
 }
 .profile__label:last-of-type {
-  border: none;
+  border-bottom-color: #fff0;
+}
+.profile__label:focus-within {
+  border-bottom: 1px #3456F3 solid;
 }
 .profile__label_type_auth:last-of-type {
   border-bottom: 1px #E8E8E8 solid;
-}
-.profile__label_type_auth:focus-within {
-  border-bottom-color: #3456F3;
 }
 .profile__span {
   font-weight: 500;
@@ -63,6 +59,7 @@
   position: absolute;
   top: 17px;
   left: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
 }
 .profile__span_type_auth {
   font-weight: 400;
@@ -74,15 +71,15 @@
 .profile__span_type_hidden {
   visibility: hidden;
   opacity: 0;
-  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
   top: auto;
   left: 0;
   bottom: -18px;
+  color: #FF3055;
 }
 .profile__span_type_error {
-  color: #FF3055;
   visibility: visible;
   opacity: 1;
+  z-index: 1;
 }
 .profile__input {
   font-weight: 400;
@@ -116,7 +113,11 @@
   margin: 0;
   position: absolute;
   bottom: 0;
-  width: 100% ;
+  width: 100%;
+  z-index: 1;
+}
+.profile__buttons_type_active {
+  z-index: 0;
 }
 .profile__button {
   font-weight: 400;
@@ -124,6 +125,9 @@
   line-height: 16px;
   border: none;
   background-color: inherit;
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
+  visibility: hidden;
+  opacity: 0;
 }
 .profile__button_type_logout {
   margin-top: 13px;
@@ -134,9 +138,25 @@
   left: 0;
   bottom: 0;
   width: 100%;
-  visibility: hidden;
-  opacity: 0;
-  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
+}
+.profile__span_type_submit {
+  font-weight: 400;
+  color: #3456F3;
+  position: initial;
+  text-align: center;
+  display: block;
+  margin: 20px auto;
+  /* visibility: hidden;
+  opacity: 0; */
+}
+.profile__span_type_err-submit {
+  color: #FF004C;
+  /* visibility: hidden;
+  opacity: 0; */
+}
+.profile__button_type_active {
+  visibility: visible;
+  opacity: 1;
 }
 .profile__button_type_submit {
   text-align: center;
@@ -149,6 +169,10 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
+}
+.profile__button_type_submit:disabled {
+  background-color: #f8f8f8;
+  color: #c2c2c2;
 }
 .profile__button-container_type_active {
   visibility: visible;
